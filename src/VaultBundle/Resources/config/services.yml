@@ -1,0 +1,4 @@
+services:
+#    vault.example:
+#        class: VaultBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
