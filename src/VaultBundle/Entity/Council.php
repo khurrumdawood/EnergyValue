@@ -50,7 +50,7 @@ class Council extends BaseEntity {
     /**
      *
      * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="council")
-     * @ORM\JoinColumn(name="council_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="council_type", referencedColumnName="id")
      */
     private $councilTypeId;
 
@@ -125,10 +125,10 @@ class Council extends BaseEntity {
     /**
      * Set profileId
      *
-     * @param integer $profileId
+     * @param \VaultBundle\Entity\Profile $profileId
      * @return Council
      */
-    public function setProfileId($profileId) {
+    public function setProfileId(\VaultBundle\Entity\Profile $profileId = null) {
         $this->profileId = $profileId;
 
         return $this;
@@ -137,7 +137,7 @@ class Council extends BaseEntity {
     /**
      * Get profileId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Profile 
      */
     public function getProfileId() {
         return $this->profileId;
@@ -146,10 +146,10 @@ class Council extends BaseEntity {
     /**
      * Set councilTypeId
      *
-     * @param integer $councilTypeId
+     * @param \VaultBundle\Entity\Lookup $councilTypeId
      * @return Council
      */
-    public function setCouncilTypeId($councilTypeId) {
+    public function setCouncilTypeId(\VaultBundle\Entity\Lookup $councilTypeId = null) {
         $this->councilTypeId = $councilTypeId;
 
         return $this;
@@ -158,7 +158,7 @@ class Council extends BaseEntity {
     /**
      * Get councilTypeId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Lookup 
      */
     public function getCouncilTypeId() {
         return $this->councilTypeId;

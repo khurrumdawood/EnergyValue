@@ -120,35 +120,12 @@ class BaseLookup extends BaseEntity {
     }
 
     /**
-     * Set parentId
-     *
-     * @param integer $parentId
-     * @return BaseLookup
-     */
-    public function setParentId($parentId) {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
-     * Get parentId
-     *
-     * @return integer 
-     */
-    public function getParentId() {
-        return $this->parentId;
-    }
-
-
-    /**
      * Add baselookup
      *
      * @param \VaultBundle\Entity\BaseLookup $baselookup
      * @return BaseLookup
      */
-    public function addBaselookup(\VaultBundle\Entity\BaseLookup $baselookup)
-    {
+    public function addBaselookup(\VaultBundle\Entity\BaseLookup $baselookup) {
         $this->baselookup[] = $baselookup;
 
         return $this;
@@ -159,8 +136,7 @@ class BaseLookup extends BaseEntity {
      *
      * @param \VaultBundle\Entity\BaseLookup $baselookup
      */
-    public function removeBaselookup(\VaultBundle\Entity\BaseLookup $baselookup)
-    {
+    public function removeBaselookup(\VaultBundle\Entity\BaseLookup $baselookup) {
         $this->baselookup->removeElement($baselookup);
     }
 
@@ -169,9 +145,29 @@ class BaseLookup extends BaseEntity {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getBaselookup()
-    {
+    public function getBaselookup() {
         return $this->baselookup;
+    }
+
+    /**
+     * Set parentId
+     *
+     * @param \VaultBundle\Entity\BaseLookup $parentId
+     * @return BaseLookup
+     */
+    public function setParentId(\VaultBundle\Entity\BaseLookup $parentId = null) {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return \VaultBundle\Entity\BaseLookup 
+     */
+    public function getParentId() {
+        return $this->parentId;
     }
 
     /**
@@ -180,8 +176,7 @@ class BaseLookup extends BaseEntity {
      * @param \VaultBundle\Entity\Lookup $lookup
      * @return BaseLookup
      */
-    public function addLookup(\VaultBundle\Entity\Lookup $lookup)
-    {
+    public function addLookup(\VaultBundle\Entity\Lookup $lookup) {
         $this->lookup[] = $lookup;
 
         return $this;
@@ -192,8 +187,7 @@ class BaseLookup extends BaseEntity {
      *
      * @param \VaultBundle\Entity\Lookup $lookup
      */
-    public function removeLookup(\VaultBundle\Entity\Lookup $lookup)
-    {
+    public function removeLookup(\VaultBundle\Entity\Lookup $lookup) {
         $this->lookup->removeElement($lookup);
     }
 
@@ -202,8 +196,8 @@ class BaseLookup extends BaseEntity {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getLookup()
-    {
+    public function getLookup() {
         return $this->lookup;
     }
+
 }

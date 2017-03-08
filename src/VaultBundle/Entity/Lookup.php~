@@ -18,6 +18,9 @@ class Lookup extends BaseEntity {
         $this->council = new ArrayCollection();
         $this->site = new ArrayCollection();
         $this->meter = new ArrayCollection();
+        $this->meterunit = new ArrayCollection();
+        $this->billingdetail = new ArrayCollection();
+        $this->contract = new ArrayCollection();
     }
 
     /**
@@ -54,7 +57,7 @@ class Lookup extends BaseEntity {
     private $council;
 
     /**
-     * @ORM\OneToMany(targetEntity="site", mappedBy="siteTypeId")
+     * @ORM\OneToMany(targetEntity="Site", mappedBy="siteTypeId")
      */
     private $site;
 
@@ -71,89 +74,11 @@ class Lookup extends BaseEntity {
     /**
      * @ORM\OneToMany(targetEntity="BillingDetail", mappedBy="typeId")
      */
+    private $billingdetail;
 
     /**
-     * Set value
-     *
-     * @param string $code
-     * @return Lookup
+     * @ORM\OneToMany(targetEntity="Contract", mappedBy="contractType")
      */
-    public function setCode($code) {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode() {
-        return $this->code;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Lookup
-     */
-    public function setName($name) {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set baseLookupId
-     *
-     * @param integer $baseLookupId
-     * @return Lookup
-     */
-    public function setBaseLookupId($baseLookupId) {
-        $this->baseLookupId = $baseLookupId;
-
-        return $this;
-    }
-
-    /**
-     * Get baseLookupId
-     *
-     * @return integer 
-     */
-    public function getBaseLookupId() {
-        return $this->baseLookupId;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Lookup
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+    private $contract;
 
 }

@@ -1,4 +1,9 @@
 Hello World!
 
 
-<a href="{{ path('fos_user_security_logout') }}">Logout</a>
+
+ {% if app.user %}
+   <a href="{{ path('fos_user_security_logout') }}">Logout</a>
+ {% else %}
+    # user is not logged in
+ {% endif %}

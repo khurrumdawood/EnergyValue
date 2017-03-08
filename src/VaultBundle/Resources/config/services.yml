@@ -2,3 +2,79 @@ services:
 #    vault.example:
 #        class: VaultBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+#  admin.user:
+#        class: VaultBundle\Admin\UserAdmin
+#        arguments: [~, VaultBundle\Entity\User, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Users, label: User , show_mosaic_button: false }
+            
+
+    vault.admin.base_lookup:
+        class: VaultBundle\Admin\BaseLookupAdmin
+        arguments: [~, VaultBundle\Entity\BaseLookup, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Base Lookup }
+
+    vault.admin.lookup:
+        class: VaultBundle\Admin\LookupAdmin
+        arguments: [~, VaultBundle\Entity\Lookup, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Lookup }
+
+    vault.admin.profile:
+        class: VaultBundle\Admin\ProfileAdmin
+        arguments: [~, VaultBundle\Entity\Profile, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Profile }
+
+    security.acl.voter.user_permissions:
+        class: VaultBundle\Security\Authorization\Voter\UserAclVoter
+        arguments: [security.acl.provider, security.acl.object_identity_retrieval_strategy, security.acl.security_identity_retrieval_strategy,security.acl.permission.map,logger]
+
+    vault.admin.council:
+        class: VaultBundle\Admin\CouncilAdmin
+        arguments: [~, VaultBundle\Entity\Council, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Council }
+
+    vault.admin.site:
+        class: VaultBundle\Admin\SiteAdmin
+        arguments: [~, VaultBundle\Entity\Site, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Site }
+
+    vault.admin.contract:
+        class: VaultBundle\Admin\ContractAdmin
+        arguments: [~, VaultBundle\Entity\Contract, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Contract }
+
+    vault.admin.billing:
+        class: VaultBundle\Admin\BillingAdmin
+        arguments: [~, VaultBundle\Entity\Billing, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Billing }
+
+    vault.admin.meter:
+        class: VaultBundle\Admin\MeterAdmin
+        arguments: [~, VaultBundle\Entity\Meter, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Meter }
+
+    vault.admin.billing_detail:
+        class: VaultBundle\Admin\BillingDetailAdmin
+        arguments: [~, VaultBundle\Entity\BillingDetail, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Billing Detail }
+
+    vault.admin.consumption:
+        class: VaultBundle\Admin\ConsumptionAdmin
+        arguments: [~, VaultBundle\Entity\Consumption, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Consumption }
+
+    vault.admin.contract_consumption:
+        class: VaultBundle\Admin\ContractConsumptionAdmin
+        arguments: [~, VaultBundle\Entity\ContractConsumption, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: ContractConsumption }

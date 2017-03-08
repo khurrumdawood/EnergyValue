@@ -16,6 +16,7 @@ class Meter extends BaseEntity {
 
     public function __construct() {
         $this->billing = new ArrayCollection();
+        $this->consumption = new ArrayCollection();
     }
 
     /**
@@ -49,13 +50,13 @@ class Meter extends BaseEntity {
 
     /**
      * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="meter")
-     * @ORM\JoinColumn(name="meter_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="meter_type", referencedColumnName="id")
      */
     private $meterTypeId;
 
     /**
      * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="meterunit")
-     * @ORM\JoinColumn(name="unit_type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="unit_type", referencedColumnName="id")
      */
     private $unitTypeId;
 
@@ -64,6 +65,12 @@ class Meter extends BaseEntity {
      * @ORM\OneToMany(targetEntity="Billing", mappedBy="meterId")
      */
     private $billing;
+    /*
+     * @ORM\OneToMany(targetEntity="Consumption", mappedBy="meterId")
+     */
+    private $consumption;
+
+   
 
     /**
      * Set code
@@ -71,7 +78,8 @@ class Meter extends BaseEntity {
      * @param string $code
      * @return Meter
      */
-    public function setCode($code) {
+    public function setCode($code)
+    {
         $this->code = $code;
 
         return $this;
@@ -82,7 +90,8 @@ class Meter extends BaseEntity {
      *
      * @return string 
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
@@ -92,7 +101,8 @@ class Meter extends BaseEntity {
      * @param string $meterNumber
      * @return Meter
      */
-    public function setMeterNumber($meterNumber) {
+    public function setMeterNumber($meterNumber)
+    {
         $this->meterNumber = $meterNumber;
 
         return $this;
@@ -103,7 +113,8 @@ class Meter extends BaseEntity {
      *
      * @return string 
      */
-    public function getMeterNumber() {
+    public function getMeterNumber()
+    {
         return $this->meterNumber;
     }
 
@@ -113,7 +124,8 @@ class Meter extends BaseEntity {
      * @param string $description
      * @return Meter
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -124,17 +136,19 @@ class Meter extends BaseEntity {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * Set siteId
      *
-     * @param integer $siteId
+     * @param \VaultBundle\Entity\Site $siteId
      * @return Meter
      */
-    public function setSiteId($siteId) {
+    public function setSiteId(\VaultBundle\Entity\Site $siteId = null)
+    {
         $this->siteId = $siteId;
 
         return $this;
@@ -143,19 +157,21 @@ class Meter extends BaseEntity {
     /**
      * Get siteId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Site 
      */
-    public function getSiteId() {
+    public function getSiteId()
+    {
         return $this->siteId;
     }
 
     /**
      * Set meterTypeId
      *
-     * @param integer $meterTypeId
+     * @param \VaultBundle\Entity\Lookup $meterTypeId
      * @return Meter
      */
-    public function setMeterTypeId($meterTypeId) {
+    public function setMeterTypeId(\VaultBundle\Entity\Lookup $meterTypeId = null)
+    {
         $this->meterTypeId = $meterTypeId;
 
         return $this;
@@ -164,19 +180,21 @@ class Meter extends BaseEntity {
     /**
      * Get meterTypeId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Lookup 
      */
-    public function getMeterTypeId() {
+    public function getMeterTypeId()
+    {
         return $this->meterTypeId;
     }
 
     /**
      * Set unitTypeId
      *
-     * @param integer $unitTypeId
+     * @param \VaultBundle\Entity\Lookup $unitTypeId
      * @return Meter
      */
-    public function setUnitTypeId($unitTypeId) {
+    public function setUnitTypeId(\VaultBundle\Entity\Lookup $unitTypeId = null)
+    {
         $this->unitTypeId = $unitTypeId;
 
         return $this;
@@ -185,10 +203,10 @@ class Meter extends BaseEntity {
     /**
      * Get unitTypeId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Lookup 
      */
-    public function getUnitTypeId() {
+    public function getUnitTypeId()
+    {
         return $this->unitTypeId;
     }
-
 }

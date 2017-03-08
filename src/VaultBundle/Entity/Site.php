@@ -48,7 +48,7 @@ class Site extends BaseEntity {
     /**
      *
      * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="site")
-     * @ORM\JOinColumn(name="site_type_id", referencedColumnName="id")
+     * @ORM\JOinColumn(name="site_type", referencedColumnName="id")
      */
     private $siteTypeId;
 
@@ -57,13 +57,15 @@ class Site extends BaseEntity {
      */
     private $meter;
 
+
     /**
      * Set code
      *
      * @param string $code
      * @return Site
      */
-    public function setCode($code) {
+    public function setCode($code)
+    {
         $this->code = $code;
 
         return $this;
@@ -74,7 +76,8 @@ class Site extends BaseEntity {
      *
      * @return string 
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
@@ -84,7 +87,8 @@ class Site extends BaseEntity {
      * @param string $name
      * @return Site
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -95,7 +99,8 @@ class Site extends BaseEntity {
      *
      * @return string 
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -105,7 +110,8 @@ class Site extends BaseEntity {
      * @param string $description
      * @return Site
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -116,17 +122,19 @@ class Site extends BaseEntity {
      *
      * @return string 
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * Set councilId
      *
-     * @param \stdClass $councilId
+     * @param \VaultBundle\Entity\Council $councilId
      * @return Site
      */
-    public function setCouncilId($councilId) {
+    public function setCouncilId(\VaultBundle\Entity\Council $councilId = null)
+    {
         $this->councilId = $councilId;
 
         return $this;
@@ -135,19 +143,21 @@ class Site extends BaseEntity {
     /**
      * Get councilId
      *
-     * @return \stdClass 
+     * @return \VaultBundle\Entity\Council 
      */
-    public function getCouncilId() {
+    public function getCouncilId()
+    {
         return $this->councilId;
     }
 
     /**
      * Set siteTypeId
      *
-     * @param integer $siteTypeId
+     * @param \VaultBundle\Entity\Lookup $siteTypeId
      * @return Site
      */
-    public function setSiteTypeId($siteTypeId) {
+    public function setSiteTypeId(\VaultBundle\Entity\Lookup $siteTypeId = null)
+    {
         $this->siteTypeId = $siteTypeId;
 
         return $this;
@@ -156,9 +166,10 @@ class Site extends BaseEntity {
     /**
      * Get siteTypeId
      *
-     * @return integer 
+     * @return \VaultBundle\Entity\Lookup 
      */
-    public function getSiteTypeId() {
+    public function getSiteTypeId()
+    {
         return $this->siteTypeId;
     }
 
@@ -168,7 +179,8 @@ class Site extends BaseEntity {
      * @param \VaultBundle\Entity\Meter $meter
      * @return Site
      */
-    public function addMeter(\VaultBundle\Entity\Meter $meter) {
+    public function addMeter(\VaultBundle\Entity\Meter $meter)
+    {
         $this->meter[] = $meter;
 
         return $this;
@@ -179,7 +191,8 @@ class Site extends BaseEntity {
      *
      * @param \VaultBundle\Entity\Meter $meter
      */
-    public function removeMeter(\VaultBundle\Entity\Meter $meter) {
+    public function removeMeter(\VaultBundle\Entity\Meter $meter)
+    {
         $this->meter->removeElement($meter);
     }
 
@@ -188,8 +201,8 @@ class Site extends BaseEntity {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getMeter() {
+    public function getMeter()
+    {
         return $this->meter;
     }
-
 }

@@ -3,6 +3,7 @@
 namespace VaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Billing
@@ -14,10 +15,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Billing extends BaseEntity {
 
     /**
-     * @var int
+     * Constructor
+     */
+    public function __construct() {
+        $this->billingDetail = new ArrayCollection();
+    }
+
+    /**
      *
      * @ORM\ManyToOne(targetEntity="Meter", inversedBy="billing")
-     * @ORM\JoinColumn(name="merter_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="meter_id", referencedColumnName="id")
      */
     private $meterId;
 
@@ -54,26 +61,6 @@ class Billing extends BaseEntity {
      */
     private $billingDetail;
 
-    /**
-     * Set meterId
-     *
-     * @param integer $meterId
-     * @return Billing
-     */
-    public function setMeterId($meterId) {
-        $this->meterId = $meterId;
-
-        return $this;
-    }
-
-    /**
-     * Get meterId
-     *
-     * @return integer 
-     */
-    public function getMeterId() {
-        return $this->meterId;
-    }
 
     /**
      * Set units
@@ -81,7 +68,8 @@ class Billing extends BaseEntity {
      * @param string $units
      * @return Billing
      */
-    public function setUnits($units) {
+    public function setUnits($units)
+    {
         $this->units = $units;
 
         return $this;
@@ -92,7 +80,8 @@ class Billing extends BaseEntity {
      *
      * @return string 
      */
-    public function getUnits() {
+    public function getUnits()
+    {
         return $this->units;
     }
 
@@ -102,7 +91,8 @@ class Billing extends BaseEntity {
      * @param string $amount
      * @return Billing
      */
-    public function setAmount($amount) {
+    public function setAmount($amount)
+    {
         $this->amount = $amount;
 
         return $this;
@@ -113,7 +103,8 @@ class Billing extends BaseEntity {
      *
      * @return string 
      */
-    public function getAmount() {
+    public function getAmount()
+    {
         return $this->amount;
     }
 
@@ -123,7 +114,8 @@ class Billing extends BaseEntity {
      * @param string $duos
      * @return Billing
      */
-    public function setDuos($duos) {
+    public function setDuos($duos)
+    {
         $this->duos = $duos;
 
         return $this;
@@ -134,7 +126,8 @@ class Billing extends BaseEntity {
      *
      * @return string 
      */
-    public function getDuos() {
+    public function getDuos()
+    {
         return $this->duos;
     }
 
@@ -144,7 +137,8 @@ class Billing extends BaseEntity {
      * @param \DateTime $period
      * @return Billing
      */
-    public function setPeriod($period) {
+    public function setPeriod($period)
+    {
         $this->period = $period;
 
         return $this;
@@ -155,16 +149,32 @@ class Billing extends BaseEntity {
      *
      * @return \DateTime 
      */
-    public function getPeriod() {
+    public function getPeriod()
+    {
         return $this->period;
     }
 
     /**
-     * Constructor
+     * Set meterId
+     *
+     * @param \VaultBundle\Entity\Meter $meterId
+     * @return Billing
      */
-    public function __construct()
+    public function setMeterId(\VaultBundle\Entity\Meter $meterId = null)
     {
-        $this->billingDetail = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->meterId = $meterId;
+
+        return $this;
+    }
+
+    /**
+     * Get meterId
+     *
+     * @return \VaultBundle\Entity\Meter 
+     */
+    public function getMeterId()
+    {
+        return $this->meterId;
     }
 
     /**

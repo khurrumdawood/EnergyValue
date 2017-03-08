@@ -1,0 +1,71 @@
+<?php
+
+namespace VaultBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Contract
+ *
+ * @ORM\Table(name="contract")
+ * @ORM\Entity(repositoryClass="VaultBundle\Repository\ContractRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class Contract extends BaseEntity {
+
+    public function __construct() {
+        $this->contractConsumption = new ArrayCollection();
+    }
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Profile", inversedBy="contract")
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     */
+    private $profileId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="period", type="datetime", nullable=true)
+     */
+    private $period;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="contract")
+     * @ORM\JoinColumn(name="contract_type", referencedColumnName="id")
+     */
+    private $contractType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=200, nullable=true)
+     */
+    private $notes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="value", type="decimal", precision=10, scale=3, nullable=true)
+     */
+    private $value;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isDefault", type="boolean", options={"default"=0})
+     */
+    private $isDefault = false;
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="ContractConsumption", mappedBy="contractID")
+     */
+    private $contractConsumption;
+
+}

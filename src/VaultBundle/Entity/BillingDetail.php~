@@ -3,6 +3,7 @@
 namespace VaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * BillingDetail
@@ -34,102 +35,9 @@ class BillingDetail extends BaseEntity {
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="lookup")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Lookup", inversedBy="billingdetail")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $typeId;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * Set billingId
-     *
-     * @param integer $billingId
-     * @return BillingDetail
-     */
-    public function setBillingId($billingId) {
-        $this->billingId = $billingId;
-
-        return $this;
-    }
-
-    /**
-     * Get billingId
-     *
-     * @return integer 
-     */
-    public function getBillingId() {
-        return $this->billingId;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return BillingDetail
-     */
-    public function setCode($code) {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode() {
-        return $this->code;
-    }
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     * @return BillingDetail
-     */
-    public function setValue($value) {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string 
-     */
-    public function getValue() {
-        return $this->value;
-    }
-
-    /**
-     * Set typeId
-     *
-     * @param integer $typeId
-     * @return BillingDetail
-     */
-    public function setTypeId($typeId) {
-        $this->typeId = $typeId;
-
-        return $this;
-    }
-
-    /**
-     * Get typeId
-     *
-     * @return integer 
-     */
-    public function getTypeId() {
-        return $this->typeId;
-    }
 
 }

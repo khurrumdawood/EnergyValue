@@ -1,0 +1,54 @@
+<?php
+
+namespace VaultBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Consumption
+ *
+ * @ORM\Table(name="consumption")
+ * @ORM\Entity(repositoryClass="VaultBundle\Repository\ConsumptionRepository")
+ */
+class Consumption extends BaseEntity {
+
+    public function __construct() {
+        $this->contractConsumption = new ArrayCollection();
+    }
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="period", type="datetime", nullable=true)
+     */
+    private $period;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToOne(targetEntity="Meter", inversedBy="consumption")
+     * @ORM\JoinColumn(name="meter_id", referencedColumnName="id")
+     */
+    private $meterId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="bracket", type="integer", nullable=true)
+     */
+    private $bracket;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="decimal", precision=10, scale=3)
+     */
+    private $unit;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ContractConsumption", mappedBy="comsumptionID")
+     */
+    private $contractConsumption;
+
+}
