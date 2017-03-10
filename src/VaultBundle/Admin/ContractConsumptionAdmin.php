@@ -31,7 +31,7 @@ class ContractConsumptionAdmin extends AbstractAdmin {
         $listMapper
                 ->add('id')
                   ->add('consumptionID', null, array('associated_property' => 'bracket', 'label' => 'Consumption'))
-                  ->add('contractID', null, array('associated_property' => 'value', 'label' => 'Consumption'))
+                  ->add('contractID', null, array('associated_property' => 'value', 'label' => 'Contract'))
                 //->add('isDeleted')
                 //->add('modifiedBy')
                 //->add('createdAt')
