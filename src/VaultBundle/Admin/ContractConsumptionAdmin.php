@@ -30,18 +30,14 @@ class ContractConsumptionAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                  ->add('consumptionID', null, array('associated_property' => 'bracket', 'label' => 'Consumption'))
-                  ->add('contractID', null, array('associated_property' => 'value', 'label' => 'Contract'))
-                //->add('isDeleted')
-                //->add('modifiedBy')
-                //->add('createdAt')
-                //->add('updatedAt')
+                ->add('consumptionID', null, array('associated_property' => 'bracket', 'label' => 'Period'))
+                ->add('contractID', null, array('associated_property' => 'value', 'label' => 'Contract'))
                 ->add('cost')
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
-                        //'delete' => array(),
+                    //'delete' => array(),
                     )
                 ))
         ;
@@ -52,14 +48,9 @@ class ContractConsumptionAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                //->add('id')
                 ->add('consumptionID', 'sonata_type_model_list', array('label' => 'Consumption'))
                 ->add('contractID', 'sonata_type_model_list', array('label' => 'Contract'))
-                //->add('contractID')
                 ->add('isDeleted')
-                //->add('modifiedBy')
-                //->add('createdAt')
-                //->add('updatedAt')
                 ->add('cost')
         ;
     }
@@ -75,6 +66,7 @@ class ContractConsumptionAdmin extends AbstractAdmin {
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('cost')
+                ->add('consumptionID', null, array('associated_property' => 'bracket', 'label' => 'Period'))
         ;
     }
 

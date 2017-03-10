@@ -28,12 +28,11 @@ class MeterAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('meterTypeId.name', null, array('label' => 'Meter type'))
-                ->add('unitTypeId.name', null, array('label' => 'Unit type'))
-                ->add('siteId.name', null, array('label' => 'Site'))
                 ->add('code')
                 ->add('meterNumber')
-                ->add('description')
+                ->add('siteId.name', null, array('label' => 'Site'))
+                ->add('meterTypeId.name', null, array('label' => 'Type'))
+                //->add('unitTypeId.name', null, array('label' => 'Unit type'))
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
@@ -72,6 +71,9 @@ class MeterAdmin extends AbstractAdmin {
                 ->add('code')
                 ->add('meterNumber')
                 ->add('description')
+                ->add('siteId', null, array('associated_property' => 'name', 'label' => 'Site'))
+                ->add('unitTypeId', null, array('associated_property' => 'name', 'label' => 'Unit Type'))
+                ->add('meterTypeId', null, array('associated_property' => 'name', 'label' => 'Type'))
         ;
     }
 

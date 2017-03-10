@@ -28,9 +28,8 @@ class BaseLookupAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('name')
                 ->add('code')
-                ->add('description')
+                ->add('name')
                 ->add('parentId.name', 'sonata_type_model_list', array('label' => 'Parent'))
                 ->add('_action', null, array(
                     'actions' => array(
@@ -68,6 +67,7 @@ class BaseLookupAdmin extends AbstractAdmin {
                 ->add('code')
                 ->add('name')
                 ->add('description')
+                ->add('parentId', null, array('associated_property' => 'code', 'label' => 'Period'))
         ;
     }
 

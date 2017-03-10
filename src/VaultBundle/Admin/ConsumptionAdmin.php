@@ -67,6 +67,7 @@ class ConsumptionAdmin extends AbstractAdmin {
                 ->add('period')
                 ->add('bracket')
                 ->add('unit')
+                ->add('meterId', null, array('associated_property' => 'code', 'label' => 'Meter'))
         ;
     }
 

@@ -77,6 +77,7 @@ class ProfileAdmin extends AbstractAdmin {
                 ->add('email')
                 ->add('gender')
                 ->add('address')
+                ->add('userId', null, array('associated_property' => 'username', 'label' => 'User'))
         ;
     }
 

@@ -28,12 +28,10 @@ class SiteAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('councilId.name', 'sonata_type_model_list', array('label' => 'Council'))
-                ->add('siteTypeId.name', 'sonata_type_model_list', array('label' => 'Lookup'))
-                ->add('isDeleted')
                 ->add('code')
                 ->add('name')
-                ->add('description')
+                ->add('siteTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
+                //->add('councilId.name', 'sonata_type_model_list', array('label' => 'Council'))
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
@@ -71,6 +69,8 @@ class SiteAdmin extends AbstractAdmin {
                 ->add('code')
                 ->add('name')
                 ->add('description')
+                ->add('siteTypeId', null, array('associated_property' => 'name', 'label' => 'Counsil'))
+                ->add('councilId', null, array('associated_property' => 'name', 'label' => 'Lookup'))
         ;
     }
 

@@ -28,10 +28,9 @@ class LookupAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('baseLookupId.name', null, array('label' => 'Base Lookup'))
                 ->add('code')
                 ->add('name')
-                ->add('description')
+                ->add('baseLookupId.name', null, array('label' => 'Parent'))
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
@@ -68,6 +67,7 @@ class LookupAdmin extends AbstractAdmin {
                 ->add('code')
                 ->add('name')
                 ->add('description')
+                ->add('baseLookupId', null, array('associated_property' => 'code', 'label' => 'Lookup'))
         ;
     }
 

@@ -15,7 +15,6 @@ class BillingAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
                 ->add('units')
                 ->add('amount')
                 ->add('duos')
@@ -27,6 +26,7 @@ class BillingAdmin extends AbstractAdmin {
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper) {
+
         $listMapper
                 ->add('id')
                 ->add('meterId.meterNumber', null, array('label' => "Meter"))
@@ -49,7 +49,6 @@ class BillingAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('meterId', 'sonata_type_model_list', array('label' => 'Meter'))
                 ->add('isDeleted')
                 ->add('units')
                 ->add('amount')
@@ -72,6 +71,7 @@ class BillingAdmin extends AbstractAdmin {
                 ->add('amount')
                 ->add('duos')
                 ->add('period')
+                ->add('meterId', null, array('associated_property' => 'meterNumber', 'label' => 'Period'))
         ;
     }
 

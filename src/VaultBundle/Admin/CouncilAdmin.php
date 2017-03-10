@@ -15,7 +15,6 @@ class CouncilAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
                 ->add('code')
                 ->add('name')
                 ->add('description')
@@ -28,11 +27,9 @@ class CouncilAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('profileId.firstName', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('councilTypeId.name', 'sonata_type_model_list', array('label' => 'Lookup'))
                 ->add('code')
                 ->add('name')
-                ->add('description')
+                ->add('councilTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
@@ -49,7 +46,7 @@ class CouncilAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('profileId', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Lookup'))
+                ->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Type'))
                 ->add('isDeleted')
                 ->add('code')
                 ->add('name')

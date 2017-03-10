@@ -27,9 +27,9 @@ class BillingDetailAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
                 ->add('id')
-                ->add('billingId', null, array('associated_property' => 'units', 'label' => 'Billing'))
-                ->add('typeId', null, array('associated_property' => 'name', 'label' => 'Lookup'))
                 ->add('code')
+                ->add('typeId', null, array('associated_property' => 'name', 'label' => 'Duos Type'))
+                //->add('billingId', null, array('associated_property' => 'units', 'label' => 'Billing'))
                 ->add('value')
                 ->add('_action', null, array(
                     'actions' => array(
@@ -66,6 +66,8 @@ class BillingDetailAdmin extends AbstractAdmin {
                 ->add('updatedAt')
                 ->add('code')
                 ->add('value')
+                ->add('billingId', null, array('associated_property' => 'units', 'label' => 'Billing'))
+                ->add('typeId', null, array('associated_property' => 'name', 'label' => 'Lookup'))
         ;
     }
 

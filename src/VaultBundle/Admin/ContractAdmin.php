@@ -15,7 +15,6 @@ class ContractAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
                 ->add('notes')
                 ->add('value')
                 ->add('isDefault')
@@ -27,12 +26,10 @@ class ContractAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('profileId.firstName', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('contractType.name', 'sonata_type_model_list', array('label' => 'Lookup'))
+                ->add('id')
                 ->add('period')
-                ->add('notes')
                 ->add('value')
-                ->add('isDefault')
+                ->add('contractType.name', 'sonata_type_model_list', array('label' => 'Contract'))
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
@@ -48,8 +45,6 @@ class ContractAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('profileId', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('contractType', 'sonata_type_model_list', array('label' => 'Lookup'))
                 ->add('isDeleted')
                 ->add('period')
                 ->add('notes')
@@ -72,6 +67,7 @@ class ContractAdmin extends AbstractAdmin {
                 ->add('notes')
                 ->add('value')
                 ->add('isDefault')
+                ->add('contractType', null, array('associated_property' => 'name', 'label' => 'Contract'))
         ;
     }
 

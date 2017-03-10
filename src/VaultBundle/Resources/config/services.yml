@@ -27,9 +27,9 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Profile }
 
-    security.acl.voter.user_permissions:
-        class: VaultBundle\Security\Authorization\Voter\UserAclVoter
-        arguments: [security.acl.provider, security.acl.object_identity_retrieval_strategy, security.acl.security_identity_retrieval_strategy,security.acl.permission.map,logger]
+#    security.acl.voter.user_permissions:
+#        class: VaultBundle\Security\Authorization\Voter\UserAclVoter
+#        arguments: [security.acl.provider, security.acl.object_identity_retrieval_strategy, security.acl.security_identity_retrieval_strategy,security.acl.permission.map,logger]
 
     vault.admin.council:
         class: VaultBundle\Admin\CouncilAdmin
