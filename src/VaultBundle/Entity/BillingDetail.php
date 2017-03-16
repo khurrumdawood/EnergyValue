@@ -13,6 +13,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BillingDetail extends BaseEntity {
 
+    public function __toString()
+    {
+        return (string)$this->code;
+    }
+
     /**
      * @ORM\ManyToOne(targetEntity="Billing", inversedBy="billingDetail")
      * @ORM\JoinColumn(name="billing_id", referencedColumnName="id")

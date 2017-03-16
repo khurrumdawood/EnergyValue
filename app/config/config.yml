@@ -37,6 +37,9 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+    form:
+        resources:
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -131,3 +134,5 @@ sonata_admin:
         
     title: Energy Value 
     title_logo: /images/logo.png
+#    options:
+#        use_select2:    false # disable select2    

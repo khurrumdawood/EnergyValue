@@ -12,15 +12,23 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\LookupRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Lookup extends BaseEntity {
+class Lookup extends BaseEntity
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->council = new ArrayCollection();
         $this->site = new ArrayCollection();
         $this->meter = new ArrayCollection();
         $this->meterunit = new ArrayCollection();
         $this->billingdetail = new ArrayCollection();
         $this->contract = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        
+        return (string)$this->name;
     }
 
     /**
@@ -98,7 +106,7 @@ class Lookup extends BaseEntity {
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -121,7 +129,7 @@ class Lookup extends BaseEntity {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -144,7 +152,7 @@ class Lookup extends BaseEntity {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -167,7 +175,7 @@ class Lookup extends BaseEntity {
     /**
      * Get baseLookupId
      *
-     * @return \VaultBundle\Entity\BaseLookup 
+     * @return \VaultBundle\Entity\BaseLookup
      */
     public function getBaseLookupId()
     {
@@ -200,7 +208,7 @@ class Lookup extends BaseEntity {
     /**
      * Get council
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCouncil()
     {
@@ -233,7 +241,7 @@ class Lookup extends BaseEntity {
     /**
      * Get site
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSite()
     {
@@ -266,7 +274,7 @@ class Lookup extends BaseEntity {
     /**
      * Get meter
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMeter()
     {
@@ -299,7 +307,7 @@ class Lookup extends BaseEntity {
     /**
      * Get meterunit
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMeterunit()
     {
@@ -332,7 +340,7 @@ class Lookup extends BaseEntity {
     /**
      * Get billingdetail
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBillingdetail()
     {
@@ -365,7 +373,7 @@ class Lookup extends BaseEntity {
     /**
      * Get contract
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getContract()
     {

@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class ProfileAdmin extends AbstractAdmin {
 
@@ -39,6 +40,7 @@ class ProfileAdmin extends AbstractAdmin {
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
+                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
                     )
                 ))
@@ -50,8 +52,8 @@ class ProfileAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('userId', 'sonata_type_model_list', array('label' => 'User'))
-                ->add('isDeleted')
+                ->add('userId', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false))
+                //->add('isDeleted')
                 ->add('firstName')
                 ->add('lastName')
                 ->add('title')
@@ -100,6 +102,12 @@ class ProfileAdmin extends AbstractAdmin {
         $object->setModifiedBy($loginedUserId);
         $object->setUpdatedAt(new \DateTime());
         $object->setCreatedAt(new \DateTime());
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+        $collection->add('softDelete');
     }
 
 }

@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class BillingDetailAdmin extends AbstractAdmin {
 
@@ -35,6 +36,7 @@ class BillingDetailAdmin extends AbstractAdmin {
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
+                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
                     )
                 ))
@@ -46,9 +48,9 @@ class BillingDetailAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('billingId', 'sonata_type_model_list', array('label' => 'Billing'))
-                ->add('typeId', 'sonata_type_model_list', array('label' => 'Lookup'))
-                ->add('isDeleted')
+                ->add('billingId', 'sonata_type_model_list', array('label' => 'Billing', 'btn_add' => false))
+                ->add('typeId', 'sonata_type_model_list', array('label' => 'Lookup', 'btn_add' => false))
+                //->add('isDeleted')
                 ->add('code')
                 ->add('value')
         ;
@@ -90,6 +92,12 @@ class BillingDetailAdmin extends AbstractAdmin {
         $object->setModifiedBy($loginedUserId);
         $object->setUpdatedAt(new \DateTime());
         $object->setCreatedAt(new \DateTime());
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+        $collection->add('softDelete');
     }
 
 }

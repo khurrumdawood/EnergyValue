@@ -10,14 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="contract_consumption")
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\ContractConsumptionRepository")
  */
-class ContractConsumption extends BaseEntity {
+class ContractConsumption extends BaseEntity
+{
+
+    public function __toString()
+    {
+        return (string)$this->cost;
+    }
 
     /**
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Contract", inversedBy="contractConsumption")
      * @ORM\JoinColumn(name="contract_id", referencedColumnName="id", nullable=false)
-     * 
+     *
      */
     private $contractID;
 
@@ -53,7 +59,7 @@ class ContractConsumption extends BaseEntity {
     /**
      * Get cost
      *
-     * @return string 
+     * @return string
      */
     public function getCost()
     {
@@ -76,7 +82,7 @@ class ContractConsumption extends BaseEntity {
     /**
      * Get contractID
      *
-     * @return \VaultBundle\Entity\Contract 
+     * @return \VaultBundle\Entity\Contract
      */
     public function getContractID()
     {
@@ -99,7 +105,7 @@ class ContractConsumption extends BaseEntity {
     /**
      * Get consumptionID
      *
-     * @return \VaultBundle\Entity\Consumption 
+     * @return \VaultBundle\Entity\Consumption
      */
     public function getConsumptionID()
     {

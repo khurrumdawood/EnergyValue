@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class SiteAdmin extends AbstractAdmin {
 
@@ -36,6 +37,7 @@ class SiteAdmin extends AbstractAdmin {
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
+                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
                     )
                 ))
@@ -46,10 +48,19 @@ class SiteAdmin extends AbstractAdmin {
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper) {
+        $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
+        $query = $em->createQueryBuilder('l')
+                ->select('l')
+                ->from('VaultBundle:Lookup', 'l')
+                ->join('l.baseLookupId', 'b')
+                ->where("b.code = :code")
+                ->setParameter('code', 'SITE TYPE');
+
         $formMapper
-                ->add('councilId', 'sonata_type_model_list', array('label' => 'Counsil'))
-                ->add('siteTypeId', 'sonata_type_model_list', array('label' => 'Lookup'))
-                ->add('isDeleted')
+                ->add('councilId', 'sonata_type_model_list', array('label' => 'Counsil', 'btn_add' => false))
+                //->add('siteTypeId', 'sonata_type_model_list', array('label' => 'Lookup'))
+                ->add('siteTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'name', 'btn_add' => false))
+                //->add('isDeleted')
                 ->add('code')
                 ->add('name')
                 ->add('description')
@@ -93,6 +104,12 @@ class SiteAdmin extends AbstractAdmin {
         $object->setModifiedBy($loginedUserId);
         $object->setUpdatedAt(new \DateTime());
         $object->setCreatedAt(new \DateTime());
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+        $collection->add('softDelete');
     }
 
 }

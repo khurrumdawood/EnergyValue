@@ -17,6 +17,11 @@ class Consumption extends BaseEntity {
         $this->contractConsumption = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string)$this->unit;
+    }
+
     /**
      * @var \DateTime
      *

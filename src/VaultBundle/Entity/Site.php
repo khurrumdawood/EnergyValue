@@ -12,10 +12,17 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\SiteRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Site extends BaseEntity {
+class Site extends BaseEntity
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->meter = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string)$this->name;
     }
 
     /**
@@ -74,7 +81,7 @@ class Site extends BaseEntity {
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -97,7 +104,7 @@ class Site extends BaseEntity {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -120,7 +127,7 @@ class Site extends BaseEntity {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -143,7 +150,7 @@ class Site extends BaseEntity {
     /**
      * Get councilId
      *
-     * @return \VaultBundle\Entity\Council 
+     * @return \VaultBundle\Entity\Council
      */
     public function getCouncilId()
     {
@@ -166,7 +173,7 @@ class Site extends BaseEntity {
     /**
      * Get siteTypeId
      *
-     * @return \VaultBundle\Entity\Lookup 
+     * @return \VaultBundle\Entity\Lookup
      */
     public function getSiteTypeId()
     {
@@ -199,7 +206,7 @@ class Site extends BaseEntity {
     /**
      * Get meter
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMeter()
     {

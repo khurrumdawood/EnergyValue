@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class CouncilAdmin extends AbstractAdmin {
 
@@ -34,7 +35,8 @@ class CouncilAdmin extends AbstractAdmin {
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
-                    //'delete' => array(),
+                        //'delete' => array(),
+                        'clone' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     )
                 ))
         ;
@@ -44,10 +46,23 @@ class CouncilAdmin extends AbstractAdmin {
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper) {
+
+        $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
+
+        $query = $em->createQueryBuilder('l')
+                ->select('l')
+                ->from('VaultBundle:Lookup', 'l')
+                ->join('l.baseLookupId', 'b')
+                ->where("b.code = :code")
+                ->setParameter('code', 'COUNCIL TYPE');
+
+
+
         $formMapper
-                ->add('profileId', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Type'))
-                ->add('isDeleted')
+                ->add('profileId', 'sonata_type_model_list', array('label' => 'Profile', 'btn_add' => false))
+                //->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Profile'))
+                ->add('councilTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false,))
+                //->add('isDeleted')
                 ->add('code')
                 ->add('name')
                 ->add('description')
@@ -89,6 +104,13 @@ class CouncilAdmin extends AbstractAdmin {
         $object->setModifiedBy($loginedUserId);
         $object->setUpdatedAt(new \DateTime());
         $object->setCreatedAt(new \DateTime());
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+
+        $collection->add('softDelete');
     }
 
 }

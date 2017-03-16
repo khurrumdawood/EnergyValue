@@ -1,0 +1,25 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('select.select_contract_edit').prop('disabled', true);
+        $(document).ready(function () {
+            $(".select_commidity").change(function () {
+
+                var code = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('contract_dropdown') }}",
+                    data: {'code': code},
+                    cache: false,
+                    success: function (html)
+                    {
+                        $(".select_contract span#select2-chosen-2").val("");
+                        $("select.select_contract").html(html);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

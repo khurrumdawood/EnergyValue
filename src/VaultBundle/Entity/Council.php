@@ -19,6 +19,10 @@ class Council extends BaseEntity {
         $this->site = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->getCode() ?: 'n/a';
+    }
+
     /**
      * @var string
      *

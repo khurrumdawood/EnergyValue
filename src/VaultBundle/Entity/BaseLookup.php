@@ -19,6 +19,10 @@ class BaseLookup extends BaseEntity {
         $this->lookup = new ArrayCollection();
     }
 
+    public function __toString() {
+        return (string) $this->name;
+    }
+
     /**
      * @var string
      *

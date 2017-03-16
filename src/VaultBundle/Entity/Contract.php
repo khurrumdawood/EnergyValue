@@ -17,6 +17,9 @@ class Contract extends BaseEntity {
     public function __construct() {
         $this->contractConsumption = new ArrayCollection();
     }
+    public function __toString() {
+        return (string) "Contract Edit";
+    }
 
     /**
      * @var int

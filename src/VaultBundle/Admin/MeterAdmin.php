@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class MeterAdmin extends AbstractAdmin {
 
@@ -37,6 +38,7 @@ class MeterAdmin extends AbstractAdmin {
                     'actions' => array(
                         'show' => array(),
                         'edit' => array(),
+                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
                     )
                 ))
@@ -48,10 +50,10 @@ class MeterAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('meterTypeId', 'sonata_type_model_list', array('label' => 'Meter type lookup '))
-                ->add('unitTypeId', 'sonata_type_model_list', array('label' => 'Unit type lookup'))
-                ->add('siteId', 'sonata_type_model_list', array('label' => 'Site'))
-                ->add('isDeleted')
+                ->add('meterTypeId', 'sonata_type_model_list', array('label' => 'Meter type lookup ', 'btn_add' => false))
+                ->add('unitTypeId', 'sonata_type_model_list', array('label' => 'Unit type lookup', 'btn_add' => false))
+                ->add('siteId', 'sonata_type_model_list', array('label' => 'Site', 'btn_add' => false))
+                //->add('isDeleted')
                 ->add('code')
                 ->add('meterNumber')
                 ->add('description')
@@ -96,6 +98,12 @@ class MeterAdmin extends AbstractAdmin {
         $object->setModifiedBy($loginedUserId);
         $object->setUpdatedAt(new \DateTime());
         $object->setCreatedAt(new \DateTime());
+    }
+
+    protected function configureRoutes(RouteCollection $collection) {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+        $collection->add('softDelete');
     }
 
 }

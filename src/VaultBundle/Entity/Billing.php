@@ -12,13 +12,20 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\BillingRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Billing extends BaseEntity {
+class Billing extends BaseEntity
+{
 
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->billingDetail = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return (string)$this->units;
     }
 
     /**
@@ -57,7 +64,7 @@ class Billing extends BaseEntity {
     private $period;
 
     /**
-     * @ORM\OneToMany(targetEntity="BillingDetail", mappedBy="billingId") 
+     * @ORM\OneToMany(targetEntity="BillingDetail", mappedBy="billingId")
      */
     private $billingDetail;
 
@@ -78,7 +85,7 @@ class Billing extends BaseEntity {
     /**
      * Get units
      *
-     * @return string 
+     * @return string
      */
     public function getUnits()
     {
@@ -101,7 +108,7 @@ class Billing extends BaseEntity {
     /**
      * Get amount
      *
-     * @return string 
+     * @return string
      */
     public function getAmount()
     {
@@ -124,7 +131,7 @@ class Billing extends BaseEntity {
     /**
      * Get duos
      *
-     * @return string 
+     * @return string
      */
     public function getDuos()
     {
@@ -147,7 +154,7 @@ class Billing extends BaseEntity {
     /**
      * Get period
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPeriod()
     {
@@ -170,7 +177,7 @@ class Billing extends BaseEntity {
     /**
      * Get meterId
      *
-     * @return \VaultBundle\Entity\Meter 
+     * @return \VaultBundle\Entity\Meter
      */
     public function getMeterId()
     {
@@ -203,7 +210,7 @@ class Billing extends BaseEntity {
     /**
      * Get billingDetail
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBillingDetail()
     {

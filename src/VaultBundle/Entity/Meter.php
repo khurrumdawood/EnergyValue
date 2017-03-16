@@ -19,6 +19,11 @@ class Meter extends BaseEntity {
         $this->consumption = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string)$this->code; 
+    }
+
     /**
      * @var string
      *

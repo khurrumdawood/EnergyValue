@@ -20,6 +20,10 @@ class Profile extends BaseEntity {
         $this->contract = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->getFirstName() ?: 'n/a';
+    }
+
     /**
      * @var string
      *
@@ -78,15 +82,13 @@ class Profile extends BaseEntity {
      */
     private $contract;
 
-
     /**
      * Set firstName
      *
      * @param string $firstName
      * @return Profile
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -97,8 +99,7 @@ class Profile extends BaseEntity {
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -108,8 +109,7 @@ class Profile extends BaseEntity {
      * @param string $lastName
      * @return Profile
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -120,8 +120,7 @@ class Profile extends BaseEntity {
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -131,8 +130,7 @@ class Profile extends BaseEntity {
      * @param string $title
      * @return Profile
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
 
         return $this;
@@ -143,8 +141,7 @@ class Profile extends BaseEntity {
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -154,8 +151,7 @@ class Profile extends BaseEntity {
      * @param string $email
      * @return Profile
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -166,8 +162,7 @@ class Profile extends BaseEntity {
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -177,8 +172,7 @@ class Profile extends BaseEntity {
      * @param boolean $gender
      * @return Profile
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -189,8 +183,7 @@ class Profile extends BaseEntity {
      *
      * @return boolean 
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -200,8 +193,7 @@ class Profile extends BaseEntity {
      * @param string $address
      * @return Profile
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
 
         return $this;
@@ -212,8 +204,7 @@ class Profile extends BaseEntity {
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -223,8 +214,7 @@ class Profile extends BaseEntity {
      * @param \Application\Sonata\UserBundle\Entity\User $userId
      * @return Profile
      */
-    public function setUserId(\Application\Sonata\UserBundle\Entity\User $userId = null)
-    {
+    public function setUserId(\Application\Sonata\UserBundle\Entity\User $userId = null) {
         $this->userId = $userId;
 
         return $this;
@@ -235,8 +225,7 @@ class Profile extends BaseEntity {
      *
      * @return \Application\Sonata\UserBundle\Entity\User 
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->userId;
     }
 
@@ -246,8 +235,7 @@ class Profile extends BaseEntity {
      * @param \VaultBundle\Entity\Council $council
      * @return Profile
      */
-    public function addCouncil(\VaultBundle\Entity\Council $council)
-    {
+    public function addCouncil(\VaultBundle\Entity\Council $council) {
         $this->council[] = $council;
 
         return $this;
@@ -258,8 +246,7 @@ class Profile extends BaseEntity {
      *
      * @param \VaultBundle\Entity\Council $council
      */
-    public function removeCouncil(\VaultBundle\Entity\Council $council)
-    {
+    public function removeCouncil(\VaultBundle\Entity\Council $council) {
         $this->council->removeElement($council);
     }
 
@@ -268,8 +255,7 @@ class Profile extends BaseEntity {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCouncil()
-    {
+    public function getCouncil() {
         return $this->council;
     }
 
@@ -279,8 +265,7 @@ class Profile extends BaseEntity {
      * @param \VaultBundle\Entity\Profile $contract
      * @return Profile
      */
-    public function addContract(\VaultBundle\Entity\Profile $contract)
-    {
+    public function addContract(\VaultBundle\Entity\Profile $contract) {
         $this->contract[] = $contract;
 
         return $this;
@@ -291,8 +276,7 @@ class Profile extends BaseEntity {
      *
      * @param \VaultBundle\Entity\Profile $contract
      */
-    public function removeContract(\VaultBundle\Entity\Profile $contract)
-    {
+    public function removeContract(\VaultBundle\Entity\Profile $contract) {
         $this->contract->removeElement($contract);
     }
 
@@ -301,8 +285,8 @@ class Profile extends BaseEntity {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getContract()
-    {
+    public function getContract() {
         return $this->contract;
     }
+
 }
