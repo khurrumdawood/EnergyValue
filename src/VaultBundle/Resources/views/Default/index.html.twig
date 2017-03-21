@@ -7,3 +7,16 @@ Hello World!
  {% else %}
     # user is not logged in
  {% endif %}
+
+
+{% if is_granted('ROLE_STAFF') %}
+    ROLE_STAFF
+{% endif %}
+
+{% if is_granted('ROLE_ADMIN') %}
+    ROLE_ADMIN
+{% elseif is_granted('ROLE_USER') %}
+    ROLE_USER
+{% else %}
+    Anonymous
+{% endif %}

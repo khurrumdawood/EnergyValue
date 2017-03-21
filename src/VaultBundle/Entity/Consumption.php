@@ -4,6 +4,7 @@ namespace VaultBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use VaultBundle\Services;
 
 /**
  * Consumption
@@ -11,15 +12,26 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="consumption")
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\ConsumptionRepository")
  */
-class Consumption extends BaseEntity {
+class Consumption extends BaseEntity
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->contractConsumption = new ArrayCollection();
+
     }
 
     public function __toString()
     {
         return (string)$this->unit;
+    }
+
+
+    private $helper = null;
+
+    public function setHelper($helper)
+    {
+        $this->helper = $helper;
     }
 
     /**
@@ -72,7 +84,7 @@ class Consumption extends BaseEntity {
     /**
      * Get period
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPeriod()
     {
@@ -95,11 +107,13 @@ class Consumption extends BaseEntity {
     /**
      * Get bracket
      *
-     * @return integer 
+     * @return integer
      */
     public function getBracket()
     {
-        return $this->bracket;
+
+        return $this->helper->convertBracket($this->bracket);
+       // return $this->bracket;
     }
 
     /**
@@ -118,7 +132,7 @@ class Consumption extends BaseEntity {
     /**
      * Get unit
      *
-     * @return string 
+     * @return string
      */
     public function getUnit()
     {
@@ -141,7 +155,7 @@ class Consumption extends BaseEntity {
     /**
      * Get meterId
      *
-     * @return \VaultBundle\Entity\Meter 
+     * @return \VaultBundle\Entity\Meter
      */
     public function getMeterId()
     {
@@ -174,7 +188,7 @@ class Consumption extends BaseEntity {
     /**
      * Get contractConsumption
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getContractConsumption()
     {

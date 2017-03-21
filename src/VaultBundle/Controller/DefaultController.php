@@ -14,6 +14,17 @@ class DefaultController extends Controller {
      * @Route("/")
      */
     public function indexAction() {
+
+//        dump($this->getUser()->getRoles());
+//
+//
+//        //print_r ($this->getUser()->getRoles());
+//exit;
+        $mailer = $this->get('app.helper');
+
+        //echo $mailer->slugify('fasdfasd');
+
+
         return $this->render('VaultBundle:Default:index.html.twig');
     }
 
@@ -32,11 +43,6 @@ class DefaultController extends Controller {
         exit;
     }
 
-    /**
-     * @Route("/admin/dummy")
-     */
-    public function dummyAction() {
-        
-    }
+
 
 }

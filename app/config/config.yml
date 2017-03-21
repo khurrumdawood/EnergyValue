@@ -4,7 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: "@VaultBundle/Resources/config/services.yml" }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
+# Put parameters here that don't need to change on each machine where the app is deployedsonata_block
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
@@ -89,7 +89,7 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Application\Sonata\UserBundle\Entity\User
-    
+
     group:
         group_class:   Application\Sonata\UserBundle\Entity\Group
         group_manager: sonata.user.orm.group_manager                    
@@ -100,7 +100,7 @@ fos_user:
 sonata_user:
     security_acl: true
     manager_type: orm # can be orm or mongodb
-    
+
 
     
     
@@ -119,20 +119,11 @@ sonata_block:
 # app/config/config.yml
 sonata_admin:
     security:
-        handler: sonata.admin.security.handler.acl
-        # acl security information
-        information:
-            GUEST:    [VIEW, LIST]
-            STAFF:    [EDIT, LIST, CREATE]
-            EDITOR:   [OPERATOR, EXPORT]
-            ADMIN:    [MASTER]
-        # permissions not related to an object instance and also to be available when objects do not exist
-        # the DELETE admin permission means the user is allowed to batch delete objects
-        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
-        # permission related to the objects
-        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]  
+        handler: sonata.admin.security.handler.role
+
         
     title: Energy Value 
     title_logo: /images/logo.png
-#    options:
-#        use_select2:    false # disable select2    
+
+
+

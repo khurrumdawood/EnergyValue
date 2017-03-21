@@ -35,8 +35,8 @@ class ConsumptionAdmin extends AbstractAdmin {
                 ->add('_action', null, array(
                     'actions' => array(
                         'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+                        //'edit' => array(),
+                        //'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     // 'delete' => array(),
                     )
                 ))

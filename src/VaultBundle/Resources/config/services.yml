@@ -27,10 +27,6 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Profile }
 
-#    security.acl.voter.user_permissions:
-#        class: VaultBundle\Security\Authorization\Voter\UserAclVoter
-#        arguments: [security.acl.provider, security.acl.object_identity_retrieval_strategy, security.acl.security_identity_retrieval_strategy,security.acl.permission.map,logger]
-
     vault.admin.council:
         class: VaultBundle\Admin\CouncilAdmin
         arguments: [~, VaultBundle\Entity\Council, VaultBundle:CRUD]
@@ -79,3 +75,19 @@ services:
         arguments: [~, VaultBundle\Entity\ContractConsumption, VaultBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Energy Value, label: ContractConsumption }
+
+    app.helper:
+        class: VaultBundle\Services\Helper
+
+    app.listener:
+        class: VaultBundle\EventListener\GeneralListener
+        arguments:
+             - '@app.helper'
+        tags:
+             - { name: doctrine.event_listener, event: postLoad }
+
+#    security.acl.permission.map:
+#        class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+
+    sonata.admin.security.mask.builder:
+        class: Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder
