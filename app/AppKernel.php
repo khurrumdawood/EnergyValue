@@ -15,23 +15,23 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            
-           
+
+
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             new VaultBundle\VaultBundle(),
-            
-            
+
+
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            
+
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Application\Sonata\UserBundle\ApplicationSonataUserBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-            
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
@@ -40,7 +40,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-            
+
         }
 
         return $bundles;
@@ -48,6 +48,18 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+    }
+
+    public function getCacheDir()
+    {
+
+        return dirname(__DIR__) . '/var/' . $this->environment . '/cache';
+    }
+
+    public function getLogDir()
+    {
+       
+        return dirname(__DIR__) . '/var/' . $this->environment . '/logs';
     }
 }
