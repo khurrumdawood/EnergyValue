@@ -62,14 +62,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         #naming_strategy: doctrine.orm.naming_strategy.underscore
-        #auto_mapping: true
-        entity_managers:
-            default:
-                mappings:
-                    ApplicationSonataUserBundle: ~
-                    SonataUserBundle: ~
-                    FOSUserBundle: ~                    
-                    VaultBundle: ~                    
+        auto_mapping: true
+#        entity_managers:
+#            default:
+#                mappings:
+#                    ApplicationSonataUserBundle: ~
+#                    SonataUserBundle: ~
+#                    FOSUserBundle: ~
+#                    VaultBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -92,17 +92,25 @@ fos_user:
 
     group:
         group_class:   Application\Sonata\UserBundle\Entity\Group
-        group_manager: sonata.user.orm.group_manager                    
+        group_manager: sonata.user.orm.group_manager
 
     service:
-        user_manager: sonata.user.orm.user_manager                     
+        user_manager: sonata.user.orm.user_manager
 
 sonata_user:
     security_acl: true
     manager_type: orm # can be orm or mongodb
+    class:
+        user:         Application\Sonata\UserBundle\Entity\User
+        group:        Application\Sonata\UserBundle\Entity\Group
 
 
-    
+    profile:  # Authentication Form
+        form:
+            type:               fos_user_profile
+            handler:            fos_user.profile.form.handler.default
+            name:               fos_user_profile_form
+            validation_groups:  [Authentication] # Please note : this is not the default value
     
 sonata_block:
     default_contexts: [cms]
@@ -118,12 +126,18 @@ sonata_block:
             
 # app/config/config.yml
 sonata_admin:
+    templates:
+        acl:  SonataAdminBundle:CRUD:acl.html.twig
     security:
         handler: sonata.admin.security.handler.role
 
-        
-    title: Energy Value 
-    title_logo: /images/logo.png
+#    extensions:
+#        app.publish.extension:
+#            admins:
+#                - sonata.user.admin.user
+
+    title: Energy Value
+    title_logo: /web/images/logo.png
 
 
 
