@@ -59,7 +59,7 @@ class GroupAdmin extends BaseGroupAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('create');
+        //$collection->remove('create');
         $collection->remove('delete');
         $collection->remove('edit');
 
