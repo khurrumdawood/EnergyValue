@@ -111,9 +111,10 @@ class Consumption extends BaseEntity
      */
     public function getBracket()
     {
-
-        return $this->helper->convertBracket($this->bracket);
-       // return $this->bracket;
+        if ($this->bracket) {
+            return $this->helper->convertBracket($this->bracket);
+        }
+        return $this->bracket;
     }
 
     /**

@@ -24,10 +24,10 @@ class Contract extends BaseEntity {
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Profile", inversedBy="contract")
-     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="contract")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $profileId;
+    private $userContract;
 
     /**
      * @var \DateTime
@@ -241,5 +241,28 @@ class Contract extends BaseEntity {
     public function getContractConsumption()
     {
         return $this->contractConsumption;
+    }
+
+    /**
+     * Set userContract
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $userContract
+     * @return Contract
+     */
+    public function setUserContract(\Application\Sonata\UserBundle\Entity\User $userContract = null)
+    {
+        $this->userContract = $userContract;
+
+        return $this;
+    }
+
+    /**
+     * Get userContract
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User 
+     */
+    public function getUserContract()
+    {
+        return $this->userContract;
     }
 }

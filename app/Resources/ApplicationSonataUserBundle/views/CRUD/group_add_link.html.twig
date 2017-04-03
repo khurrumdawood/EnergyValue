@@ -1,0 +1,12 @@
+<script>
+    $(function () {
+        $("th.sonata-ba-list-field-header-actions").html('Actions');
+        $("section.sidebar p.small").remove();
+    });
+</script>
+
+
+<a class="sonata-action-element" href="{{ app.request.getBaseURL() }}/admin/group/create">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    Add new
+</a>

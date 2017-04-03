@@ -7,4 +7,10 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  
+
+
+#    app.publish.extension:
+#        class: Application\Sonata\UserBundle\Extensions\UserAdminExtension
+#        tags:
+#            - { name: sonata.admin.extension, target: sonata.user.admin.user }
+

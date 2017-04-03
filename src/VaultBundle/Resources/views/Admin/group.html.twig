@@ -1,0 +1,131 @@
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+ {% block sonata_breadcrumb %}
+     {{ parent() }}
+     <ol class="nav navbar-top-links breadcrumb">
+         <li>
+             <a href="{{ path('sonata_admin_dashboard') }}">
+                 <i class="fa fa-home"></i> </a>
+         </li>
+
+         <li class="active"><span>Groups</span></li>
+     </ol>
+ {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .ui-draggable, .ui-droppable {
+            background-position: top;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="https://code.jquery.com/jquery-1.12.4.js"></script>#}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+            $('input[name="group_role[]"]:checked').each(function () {
+                $(this).parent().parent().parent().show();
+            });
+            //$(".ui-accordion-content").show();
+        });
+    </script>
+{% endblock %}
+{% block sonata_admin_content %}
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="sonata-ba-form">
+        <form name="save-group" method="post" action="{{ path('save_admin_group') }}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-body  container-fluid">
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="box box-primary">
+                                    <div class="box-header">
+                                        <h4 class="box-title">
+                                            Group
+                                        </h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="sonata-ba-collapsed-fields">
+                                            <div class="form-group" id="sonata-ba-field-container-s58dcb32c37cee_name">
+                                                <label class="control-label required" for="s58dcb32c37cee_name">
+                                                    Name
+                                                </label>
+                                                <div class="sonata-ba-field sonata-ba-field-standard-natural">
+                                                    <input type="text" id="group_name" name="group_name"
+                                                           required="required" maxlength="255" pattern=".{2,}"
+                                                           class=" form-control"
+                                                           value="{{ group ? group.getName() : '' }}">
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#{% set tabs = 0 %}#}
+                        <div id="accordion">
+                            {% for module_key,module in modules %}
+                                <h3> {{ module }}</h3>
+                                <div>
+                                    <p>
+                                        {% for role_key,role in roles %}
+                                            {% if module_key in  role_key %}
+                                                <input
+                                                        type="checkbox"
+                                                        name="group_role[]"
+                                                        value="{{ role_key }}"
+                                                        {% if group %}
+                                                            {% for myrole in group.roles %}
+                                                                {% if myrole == role_key %}
+                                                                    checked="checked"
+                                                                    {#{% tabs[] = loop.parent.loop.index %}#}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %}
+
+                                                > {{ role }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input type="hidden" name="id" value="{{ group ? group.getId() : '' }} ">
+            <div class="sonata-ba-form-actions well well-small form-actions">
+                <button type="submit" class="btn btn-success" name="btn_create_and_edit" value="submit">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Submit
+                </button>
+                <a href="{{ path('admin_sonata_user_group_list') }}" class="btn btn-success" name="btn_create_and_edit"
+                   value="submit">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Back to List
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

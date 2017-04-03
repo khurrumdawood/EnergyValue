@@ -49,7 +49,7 @@ class ContractAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
 
-        $formMapper->add('profileId', 'sonata_type_model_list', array('label' => 'Profile', 'btn_add' => false));
+        $formMapper->add('userContract', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false));
         //->add('contractType', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false,))
         if (!$this->id($this->getSubject())) { //Handling add case
             $formMapper->add('select_commidity', 'choice', array(

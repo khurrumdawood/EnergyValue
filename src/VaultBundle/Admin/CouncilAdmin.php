@@ -59,7 +59,7 @@ class CouncilAdmin extends AbstractAdmin {
 
 
         $formMapper
-                ->add('profileId', 'sonata_type_model_list', array('label' => 'Profile', 'btn_add' => false))
+                ->add('userCouncil', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false))
                 //->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Profile'))
                 ->add('councilTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false,))
                 //->add('isDeleted')

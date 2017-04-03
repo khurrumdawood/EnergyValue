@@ -2,6 +2,7 @@
 
 namespace VaultBundle\Controller;
 
+use Application\Sonata\UserBundle\Entity\Group;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +16,22 @@ class DefaultController extends Controller {
      */
     public function indexAction() {
 
-//        dump($this->getUser()->getRoles());
+         echo "test";
+       // dump($this->getUser()->getParentUser());
 //
 //
 //        //print_r ($this->getUser()->getRoles());
-//exit;
-        $mailer = $this->get('app.helper');
+//        //$mailer = $this->get('app.helper');
 
         //echo $mailer->slugify('fasdfasd');
+        $em= $this->getDoctrine()->getManager();
+        $group = new Group("myfirstgroup");
+        $group->setRoles(array());
+        $group->addRole('ROLE_VAULT_ADMIN_LOOKUP_STAFF');
+        $em->persist($group);
+        $em->flush();
+            echo "Group created ";
+        exit;
 
 
         return $this->render('VaultBundle:Default:index.html.twig');

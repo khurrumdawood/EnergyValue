@@ -12,14 +12,17 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="VaultBundle\Repository\CouncilRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Council extends BaseEntity {
+class Council extends BaseEntity
+{
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->site = new ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getCode() ?: 'n/a';
     }
 
@@ -46,10 +49,10 @@ class Council extends BaseEntity {
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Profile", inversedBy="council")
-     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="council")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $profileId;
+    private $userCouncil;
 
     /**
      *
@@ -69,7 +72,8 @@ class Council extends BaseEntity {
      * @param string $code
      * @return Council
      */
-    public function setCode($code) {
+    public function setCode($code)
+    {
         $this->code = $code;
 
         return $this;
@@ -78,9 +82,10 @@ class Council extends BaseEntity {
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
@@ -90,7 +95,8 @@ class Council extends BaseEntity {
      * @param string $name
      * @return Council
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -99,9 +105,10 @@ class Council extends BaseEntity {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -111,7 +118,8 @@ class Council extends BaseEntity {
      * @param string $description
      * @return Council
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -120,31 +128,11 @@ class Council extends BaseEntity {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
-    }
-
-    /**
-     * Set profileId
-     *
-     * @param \VaultBundle\Entity\Profile $profileId
-     * @return Council
-     */
-    public function setProfileId(\VaultBundle\Entity\Profile $profileId = null) {
-        $this->profileId = $profileId;
-
-        return $this;
-    }
-
-    /**
-     * Get profileId
-     *
-     * @return \VaultBundle\Entity\Profile 
-     */
-    public function getProfileId() {
-        return $this->profileId;
     }
 
     /**
@@ -153,7 +141,8 @@ class Council extends BaseEntity {
      * @param \VaultBundle\Entity\Lookup $councilTypeId
      * @return Council
      */
-    public function setCouncilTypeId(\VaultBundle\Entity\Lookup $councilTypeId = null) {
+    public function setCouncilTypeId(\VaultBundle\Entity\Lookup $councilTypeId = null)
+    {
         $this->councilTypeId = $councilTypeId;
 
         return $this;
@@ -162,9 +151,10 @@ class Council extends BaseEntity {
     /**
      * Get councilTypeId
      *
-     * @return \VaultBundle\Entity\Lookup 
+     * @return \VaultBundle\Entity\Lookup
      */
-    public function getCouncilTypeId() {
+    public function getCouncilTypeId()
+    {
         return $this->councilTypeId;
     }
 
@@ -174,7 +164,8 @@ class Council extends BaseEntity {
      * @param \VaultBundle\Entity\Site $site
      * @return Council
      */
-    public function addSite(\VaultBundle\Entity\Site $site) {
+    public function addSite(\VaultBundle\Entity\Site $site)
+    {
         $this->site[] = $site;
 
         return $this;
@@ -185,17 +176,42 @@ class Council extends BaseEntity {
      *
      * @param \VaultBundle\Entity\Site $site
      */
-    public function removeSite(\VaultBundle\Entity\Site $site) {
+    public function removeSite(\VaultBundle\Entity\Site $site)
+    {
         $this->site->removeElement($site);
     }
 
     /**
      * Get site
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSite() {
+    public function getSite()
+    {
         return $this->site;
     }
 
+
+    /**
+     * Get user
+     *
+     * @return \Application\Sonata\UserBundle\Entity\User
+     */
+    public function getUserCouncil()
+    {
+        return $this->userCouncil;
+    }
+
+    /**
+     * Set userCouncil
+     *
+     * @param \Application\Sonata\UserBundle\Entity\User $userCouncil
+     * @return Council
+     */
+    public function setUserCouncil(\Application\Sonata\UserBundle\Entity\User $userCouncil = null)
+    {
+        $this->userCouncil = $userCouncil;
+
+        return $this;
+    }
 }

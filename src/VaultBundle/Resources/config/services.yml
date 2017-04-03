@@ -2,12 +2,18 @@ services:
 #    vault.example:
 #        class: VaultBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-#  admin.user:
+#    vault.admin.user:
 #        class: VaultBundle\Admin\UserAdmin
 #        arguments: [~, VaultBundle\Entity\User, SonataAdminBundle:CRUD]
 #        tags:
 #            - { name: sonata.admin, manager_type: orm, group: Users, label: User , show_mosaic_button: false }
-            
+#
+
+#    sonata.user.admin:
+#        class: Sonata\UserBundle\Admin\Entity\UserAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: protalk_user, label: User }
+#        arguments: [null, Sonata\UserBundle\Entity\User, null]
 
     vault.admin.base_lookup:
         class: VaultBundle\Admin\BaseLookupAdmin
@@ -21,11 +27,11 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Lookup }
 
-    vault.admin.profile:
-        class: VaultBundle\Admin\ProfileAdmin
-        arguments: [~, VaultBundle\Entity\Profile, VaultBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Profile }
+#    vault.admin.profile:
+#        class: VaultBundle\Admin\ProfileAdmin
+#        arguments: [~, VaultBundle\Entity\Profile, VaultBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Energy Value, label: Profile }
 
     vault.admin.council:
         class: VaultBundle\Admin\CouncilAdmin
@@ -91,3 +97,6 @@ services:
 
     sonata.admin.security.mask.builder:
         class: Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder
+
+
+

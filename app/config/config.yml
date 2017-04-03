@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@VaultBundle/Resources/config/services.yml" }
+    #- { resource: "@ApplicationSonataUserBundle/Resources/config/admin.xml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployedsonata_block
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -103,7 +104,14 @@ sonata_user:
     class:
         user:         Application\Sonata\UserBundle\Entity\User
         group:        Application\Sonata\UserBundle\Entity\Group
-
+    admin:                  # Admin Classes
+        user:
+            class:          Application\Sonata\UserBundle\Admin\UserAdmin
+            #controller:     ApplicationSonataUserBundle:CURD
+            translation:    SonataUserBundle
+        group:
+            class:          Application\Sonata\UserBundle\Admin\GroupAdmin
+            translation:    SonataUserBundle
 
     profile:  # Authentication Form
         form:
@@ -126,11 +134,12 @@ sonata_block:
             
 # app/config/config.yml
 sonata_admin:
-    templates:
-        acl:  SonataAdminBundle:CRUD:acl.html.twig
     security:
         handler: sonata.admin.security.handler.role
-
+    templates:
+        layout:  ApplicationSonataUserBundle::standard_layout.html.twig
+#    options:
+#        use_icheck: false
 #    extensions:
 #        app.publish.extension:
 #            admins:

@@ -25,7 +25,16 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author <yourname> <youremail>
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
+
+
+    public function __construct()
+    {
+
+        $this->council = new ArrayCollection();
+        $this->contract = new ArrayCollection();
+    }
 
     /**
      * @var int $id
@@ -37,13 +46,85 @@ class User extends BaseUser {
      *
      * @return int $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="VaultBundle\Entity\Profile", mappedBy="userId")
-     */
-    private $profile;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User",  inversedBy="fosUser")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parentUser;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="parentUser")
+     */
+    protected $fosUser;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\VaultBundle\Entity\Council", mappedBy="userCouncil")
+     */
+    protected $council;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\VaultBundle\Entity\Contract", mappedBy="userContract")
+     */
+    protected $contract;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=100)
+     */
+    protected $address;
+
+    /**
+     * Set parentUser
+     *
+     *
+     * @return parentUser
+     */
+    public function setParentUser(\Application\Sonata\UserBundle\Entity\User $user = null)
+    {
+        $this->parentUser = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get parentUser
+     *
+     * @return int $parentUser
+     */
+    public function getParentUser()
+    {
+        return $this->parentUser;
+    }
+
+
+    /**
+     * Get address
+     *
+     * @return string $address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set address
+     *
+     *
+     * @return address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
 }

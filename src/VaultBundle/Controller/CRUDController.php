@@ -26,4 +26,5 @@ class CRUDController extends Controller {
         return new RedirectResponse($this->admin->generateUrl('list'));
     }
 
+   
 }
