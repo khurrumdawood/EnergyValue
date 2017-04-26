@@ -12,4 +12,108 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConsumptionRepository extends EntityRepository
 {
+    function get_consumed_units_with_period($timeperiod, $getutilitytype,$getcouncil, $getsite)
+    {
+        $start = $end = "";
+        $period = 'period';
+        $groupby = 'period';
+        $orderby = '';
+
+        if($timeperiod == "1"){
+            $start = date('Y-m-d',strtotime('Monday last week'));
+            $end = date('Y-m-d',strtotime('Sunday last week'));
+            $period = "DATE_FORMAT(period,'%W') as period" ;
+
+        }elseif($timeperiod == "2"){
+            $last_month = date('m',strtotime('last month'));
+            $last_year_month = date('Y-m',strtotime('last month'));
+            $end_months = array('01','03','05','07','08','10','12');
+            if(in_array($last_month,$end_months)){
+                $month_end = '31';
+            }else{
+                $month_end = '30';
+            }
+
+            $start = $last_year_month.'-01' ;
+            $end = $last_year_month.'-'.$month_end ;
+
+        }else{
+
+            $interval   = $timeperiod;
+            $end    = date('Y-m-d');
+            $start  = date('Y-m-d', strtotime("-".$interval." month"));
+
+            $period = "DATE_FORMAT(period,'%M %Y') as period" ;
+            $groupby = "DATE_FORMAT(period,'%M')" ;
+            $orderby = "ORDER BY DATE_FORMAT(period,'%Y %m') DESC" ;
+        }
+
+        $subquery = '';
+        $subquery_where = '';
+        $sites_list = '';
+        $counter = 1;
+
+        if($getcouncil){
+            $repository = $this->getEntityManager()->getRepository('VaultBundle:Site');
+            $sites = $repository->get_all_sites($getcouncil);
+
+            if($sites){
+                foreach($sites as $site){
+                    if($counter > 1){
+                        $sites_list .= ',';
+                    }
+                    $sites_list .= $site['id'];
+                    $counter++;
+                }
+            }
+        }
+
+        if($getsite || $getutilitytype || $getcouncil){
+            if($getsite && $getutilitytype){
+                $subquery_where .= "meter.site_id = $getsite AND meter.meter_type = $getutilitytype" ;
+            }elseif($getutilitytype && $getcouncil){
+                $subquery_where .= "meter.meter_type = $getutilitytype AND meter.site_id IN($sites_list)" ;
+            }elseif($getutilitytype){
+                $subquery_where .= "meter.meter_type = $getutilitytype" ;
+            }elseif($getsite){
+                $subquery_where .= "meter.site_id = $getsite" ;
+            }elseif($getcouncil && $sites_list){
+                $subquery_where .= "meter.site_id IN($sites_list)" ;
+            }
+        }
+
+        if($subquery_where){
+            $subquery .= "SELECT meter.id FROM meter Where $subquery_where";
+        }
+
+        if($subquery){
+            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total_Units
+                          FROM consumption
+                          WHERE meter_id IN ($subquery)
+                          AND period BETWEEN '$start' AND '$end'
+                          GROUP BY $groupby
+                          $orderby";
+        }else{
+            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total_Units
+                          FROM consumption
+                          WHERE period BETWEEN '$start' AND '$end'
+                          GROUP BY $groupby
+                          $orderby";
+        }
+
+        //echo "sql query is: ".$SQL_QUERY;
+        return $this->getEntityManager()->getConnection()->executeQuery($SQL_QUERY)->fetchAll();
+    }
+
+    function get_weekely_all_consumed_units(){
+        $start = date('Y-m-d',strtotime('Monday last week'));
+        $end = date('Y-m-d',strtotime('Sunday last week'));
+
+        $SQL_QUERY = "SELECT DATE_FORMAT(period,'%W') as period,SUM(unit) AS Total_Units
+                      FROM consumption
+                      WHERE period BETWEEN '$start' AND '$end'
+                      GROUP BY period";
+
+        return $this->getEntityManager()->getConnection()->executeQuery($SQL_QUERY)->fetchAll();
+    }
 }

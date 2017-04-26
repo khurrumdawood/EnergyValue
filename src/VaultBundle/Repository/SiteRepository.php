@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class SiteRepository extends EntityRepository
 {
+    function get_all_sites($councilid){
+
+        $SQL_QUERY = "SELECT id,name FROM site WHERE council_id= $councilid";
+
+        return $this->getEntityManager()->getConnection()->executeQuery($SQL_QUERY)->fetchAll();
+    }
 }
