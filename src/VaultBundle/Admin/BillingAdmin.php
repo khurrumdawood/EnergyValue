@@ -16,10 +16,11 @@ class BillingAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('units')
-                ->add('amount')
-                ->add('duos')
-
+            ->add('meterId.meterNumber',null,array('label' => 'Meter'))
+            ->add('period')
+            ->add('units')
+            ->add('amount')
+            ->add('duos')
         ;
     }
 
@@ -29,20 +30,20 @@ class BillingAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper) {
 
         $listMapper
-                ->add('id')
-                ->add('meterId.meterNumber', null, array('label' => "Meter"))
-                ->add('units')
-                ->add('amount')
-                ->add('duos')
-                ->add('period')
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //  ->add('id')
+            ->add('meterId.meterNumber', null, array('label' => "Meter"))
+            ->add('period')
+            ->add('units')
+            ->add('amount')
+            ->add('duos')
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     // 'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -51,12 +52,12 @@ class BillingAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('meterId', 'sonata_type_model_list', array('label' => "Meter", 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('units')
-                ->add('amount')
-                ->add('duos')
-                ->add('period', 'sonata_type_date_picker', array('format' => 'dd/MM/yyyy'))
+            ->add('meterId', 'sonata_type_model_list', array('label' => "Meter", 'btn_add' => false))
+            //->add('isDeleted')
+            ->add('units')
+            ->add('amount')
+            ->add('duos')
+            ->add('period', 'sonata_type_date_picker', array('format' => 'dd/MM/yyyy'))
         ;
     }
 

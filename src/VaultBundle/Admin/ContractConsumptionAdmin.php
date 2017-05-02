@@ -23,7 +23,8 @@ class ContractConsumptionAdmin extends AbstractAdmin
 //                ->add('modifiedBy')
 //                ->add('createdAt')
 //                ->add('updatedAt')
-            ->add('cost');
+            //->add('cost')
+        ;
     }
 
     /**

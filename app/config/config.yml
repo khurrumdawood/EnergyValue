@@ -137,7 +137,7 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
     templates:
-        layout:  ApplicationSonataUserBundle::standard_layout.html.twig
+        layout:  VaultBundle::standard_layout.html.twig
 #    options:
 #        use_icheck: false
 #    extensions:

@@ -16,9 +16,12 @@ class ConsumptionAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
-                ->add('bracket')
-                ->add('unit')
+            //   ->add('isDeleted')
+
+            ->add('meterId.code',null,array('label' => 'Meter'))
+            ->add('period')
+            ->add('bracket')
+            ->add('unit')
         ;
     }
 
@@ -27,19 +30,19 @@ class ConsumptionAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('meterId', null, array('associated_property' => 'code', 'label' => 'Meter'))
-                ->add('period')
-                ->add('bracket')
-                ->add('unit')
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        //'edit' => array(),
-                        //'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //  ->add('id')
+            ->add('meterId', null, array('associated_property' => 'code', 'label' => 'Meter'))
+            ->add('period')
+            ->add('bracket')
+            ->add('unit')
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    //'edit' => array(),
+                    //'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     // 'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -48,11 +51,11 @@ class ConsumptionAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('meterId', 'sonata_type_model_list', array('label' => 'Meter', 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('period', 'sonata_type_date_picker', array('format' => 'y-M-d',))
-                ->add('bracket')
-                ->add('unit')
+            ->add('meterId', 'sonata_type_model_list', array('label' => 'Meter', 'btn_add' => false))
+            //->add('isDeleted')
+            ->add('period', 'sonata_type_date_picker', array('format' => 'y-M-d',))
+            ->add('bracket')
+            ->add('unit')
         ;
     }
 

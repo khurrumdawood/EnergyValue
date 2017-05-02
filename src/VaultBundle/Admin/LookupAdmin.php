@@ -16,10 +16,11 @@ class LookupAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            //  ->add('isDeleted')
+            ->add('code')
+            ->add('name')
+            ->add('baseLookupId.name',null, array('label' => 'Parent'))
+            //   ->add('description')
         ;
     }
 
@@ -28,18 +29,18 @@ class LookupAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('code')
-                ->add('name')
-                ->add('baseLookupId.name', null, array('label' => 'Parent'))
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //     ->add('id')
+            ->add('code')
+            ->add('name')
+            ->add('baseLookupId.name', null, array('label' => 'Parent'))
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //  'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -48,11 +49,11 @@ class LookupAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('baseLookupId', 'sonata_type_model_list', array('label' => 'Lookup', 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            ->add('baseLookupId', 'sonata_type_model_list', array('label' => 'Lookup', 'btn_add' => false))
+            //->add('isDeleted')
+            ->add('code')
+            ->add('name')
+            ->add('description')
         ;
     }
 

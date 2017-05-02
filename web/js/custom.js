@@ -1,4 +1,4 @@
-function show_chart(showcharturl, title_text){
+function show_chart(showcharturl){
     $.blockUI({ message: '<h1>Please Wait ...</h1>' });
 
     $.ajax({
@@ -10,6 +10,7 @@ function show_chart(showcharturl, title_text){
             utility_type: $("#utility_type").val(),
             council: $("#councils_list").val(),
             site: $("#sites_list").val(),
+            chart_for: $("#chart_for").val(),
         },
         error: function () {
             alert('Error');
@@ -23,12 +24,8 @@ function show_chart(showcharturl, title_text){
                 response.push([index, Number(value)]);
             });
 
-            var title = '';
-            if(title_text){
-                title = title_text+" ("+result.title+")" ;
-            }else{
-                title = result.title ;
-            }
+            var title = result.title;
+
             showmap('spline','spline_chart',title,'KWH',response);
             showmap('pie','pie_chart',title,'KWH',response);
             showmap('column','column_chart',title,'KWH',response);
@@ -51,6 +48,8 @@ function load_chart_and_sites_list(showcharturl, showsiteslisturl){
         },
         success: function (result) {
             $('#sites_list').html(result);
+            document.getElementById("select2-chosen-4").innerHTML = "Select Site";
+
             $.unblockUI() ;
             show_chart(showcharturl);
         }
@@ -62,9 +61,10 @@ function goback(hidediv,showdiv){
     $("#"+showdiv).show();
 }
 
-
 $(document ).ready(function() {
     $('#change_chart').extraBox({ attribute: 'class' });
+    $('#time_period').extraBox({ attribute: 'class' });
+    $('#time_period').data('extraBox').disable('op4');
 
     $('#change_chart').on('change', function() {
         if (this.value != "") {
@@ -97,7 +97,31 @@ $(document ).ready(function() {
 
 function showmap(chart_type, chart_container, title, y_axis_title, chartresults) {
 
-     Highcharts.chart(chart_container, {
+    var map_for = $("#chart_for").val();
+    var vertical_title = '';
+    var point_format_before = '';
+    var point_format_after = '';
+    if(map_for == "cost_in"){
+        vertical_title = 'Cost in (£)';
+        point_format_before = 'Amount';
+        point_format_after = '£';
+    }else{
+        var unit_type = $("#utility_type").val();
+        if(unit_type == 7){
+            vertical_title = 'EHV';
+            point_format_before = "Units";
+            point_format_after = "EHV";
+            $("#kwh").innerHTML = "EHV";
+        }else{
+            vertical_title = 'KWH';
+            point_format_before = "Units";
+            point_format_after = "KWH";
+            $("#kwh").innerHTML = "KWH";
+        }
+
+    }
+
+    Highcharts.chart(chart_container, {
          chart: {
              type: chart_type
          },
@@ -117,7 +141,7 @@ function showmap(chart_type, chart_container, title, y_axis_title, chartresults)
          yAxis: {
              min: 0,
              title: {
-                 text: y_axis_title
+                 text: vertical_title
              }
          },
          legend: {
@@ -127,7 +151,7 @@ function showmap(chart_type, chart_container, title, y_axis_title, chartresults)
              enabled: false
          },
          tooltip: {
-             pointFormat: 'Units <b>{point.y:.1f}</b> KWH'
+             pointFormat: point_format_before+' <b>{point.y:.1f}</b> '+point_format_after
          },
          plotOptions: {
              pie: {

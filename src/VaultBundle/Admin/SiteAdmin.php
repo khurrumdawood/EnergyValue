@@ -16,10 +16,11 @@ class SiteAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            // ->add('isDeleted')
+            ->add('code')
+            ->add('name')
+            ->add('siteTypeId.name', null, array('label' => 'Type'))
+            //  ->add('description')
         ;
     }
 
@@ -28,19 +29,19 @@ class SiteAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('code')
-                ->add('name')
-                ->add('siteTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
-                //->add('councilId.name', 'sonata_type_model_list', array('label' => 'Council'))
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //    ->add('id')
+            ->add('code')
+            ->add('name')
+            ->add('siteTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
+            //->add('councilId.name', 'sonata_type_model_list', array('label' => 'Council'))
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -50,20 +51,20 @@ class SiteAdmin extends AbstractAdmin {
     protected function configureFormFields(FormMapper $formMapper) {
         $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
         $query = $em->createQueryBuilder('l')
-                ->select('l')
-                ->from('VaultBundle:Lookup', 'l')
-                ->join('l.baseLookupId', 'b')
-                ->where("b.code = :code")
-                ->setParameter('code', 'SITE TYPE');
+            ->select('l')
+            ->from('VaultBundle:Lookup', 'l')
+            ->join('l.baseLookupId', 'b')
+            ->where("b.code = :code")
+            ->setParameter('code', 'SITE TYPE');
 
         $formMapper
-                ->add('councilId', 'sonata_type_model_list', array('label' => 'Counsil', 'btn_add' => false))
-                //->add('siteTypeId', 'sonata_type_model_list', array('label' => 'Lookup'))
-                ->add('siteTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'name', 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            ->add('councilId', 'sonata_type_model_list', array('label' => 'Counsil', 'btn_add' => false))
+            //->add('siteTypeId', 'sonata_type_model_list', array('label' => 'Lookup'))
+            ->add('siteTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'name', 'btn_add' => false, 'choices_as_values' => true))
+            //->add('isDeleted')
+            ->add('code')
+            ->add('name')
+            ->add('description')
         ;
     }
 

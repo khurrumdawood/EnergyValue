@@ -18,9 +18,9 @@ class ContractAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('notes')
+            ->add('period')
             ->add('value')
-            ->add('isDefault');
+            ->add('contractType.name',null,array('label' => 'Contract'));
     }
 
     /**
@@ -29,16 +29,16 @@ class ContractAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
+            //   ->add('id')
             ->add('period', 'date', array('format' => 'Y-m-d',))
-            ->add('value')
             ->add('contractType.name', 'sonata_type_model_list', array('label' => 'Contract'))
+            ->add('value')
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    //'delete' => array(),
-                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+                    'delete' => array(),
+                    //'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                 )
             ));
     }
@@ -48,30 +48,33 @@ class ContractAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
 
+        $query = $em->createQueryBuilder('l')
+            ->select('l')
+            ->from('VaultBundle:Lookup', 'l')
+            ->join('l.baseLookupId', 'b')
+            ->where("b.parentId = 1")
+            ->ORwhere("b.parentId = 2");
+
+        $formMapper->add('select_commidity', 'choice', array(
+            'choices' => array('' => 'Select', 'COMMODITY' => 'Commodity', 'NON COMMODITY' => 'Non Commodity'),
+            'label' => false,
+            'mapped' => false,
+            "attr" => array("class" => "select_commidity")
+        ));
+
+        $formMapper->add('contractType', 'sonata_type_model', array('required' => true, 'query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false, 'choices_as_values' => true,"attr" => array("class" => "select_contract")));
+        //$formMapper->add('contractType', 'sonata_type_model_list', array('label' => 'Contract Type', 'btn_add' => false));
         $formMapper->add('userContract', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false));
-        //->add('contractType', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false,))
-        if (!$this->id($this->getSubject())) { //Handling add case
-            $formMapper->add('select_commidity', 'choice', array(
-                'choices' => array('' => 'Select', 'COMMODITY' => 'Commodity', 'NON COMMODITY' => 'Non Commodity'),
-                'label' => false,
-                'mapped' => false,
-                "attr" => array("class" => "select_commidity")
-            ));
-            $formMapper
-                ->add('contractType', 'choice', array(
-                    'choices' => array(),
-                    'label' => 'Type',
-                    "attr" => array("class" => "select_contract", 'data-sonata-select2' => 'false',)
-                ));
-        }
+
         $formMapper->add('isDeleted')
             ->add('period', 'sonata_type_date_picker', array('format' => 'dd/MM/yyyy'))
             ->add('notes')
             ->add('value')
             ->add('isDefault');
     }
-
+    
     /**
      * @param ShowMapper $showMapper
      */

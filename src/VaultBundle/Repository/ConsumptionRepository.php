@@ -87,14 +87,14 @@ class ConsumptionRepository extends EntityRepository
         }
 
         if($subquery){
-            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total_Units
+            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total
                           FROM consumption
                           WHERE meter_id IN ($subquery)
                           AND period BETWEEN '$start' AND '$end'
                           GROUP BY $groupby
                           $orderby";
         }else{
-            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total_Units
+            $SQL_QUERY = "SELECT $period,SUM(unit) AS Total
                           FROM consumption
                           WHERE period BETWEEN '$start' AND '$end'
                           GROUP BY $groupby
@@ -109,7 +109,7 @@ class ConsumptionRepository extends EntityRepository
         $start = date('Y-m-d',strtotime('Monday last week'));
         $end = date('Y-m-d',strtotime('Sunday last week'));
 
-        $SQL_QUERY = "SELECT DATE_FORMAT(period,'%W') as period,SUM(unit) AS Total_Units
+        $SQL_QUERY = "SELECT DATE_FORMAT(period,'%W') as period,SUM(unit) AS Total
                       FROM consumption
                       WHERE period BETWEEN '$start' AND '$end'
                       GROUP BY period";

@@ -22,11 +22,12 @@
         <div class="row-fluid">
             <div class="col-md-3">
                 <select class="showchart" name="time_period" id="time_period">
-                    <option value="1">Last Week</option>
+                    <option value="1" class="op5">Last Week</option>
                     <option value="2">Last Month</option>
                     <option value="3">Last 3 Month </option>
                     <option value="6">Last 6 Month</option>
                     <option value="12">Last 12 Month</option>
+                    <option value="24" class="op4">Last 2 Years</option>
                 </select>
             </div>
 
@@ -73,34 +74,41 @@
                 <option value="2" class="op2">  Pie</option>
                 <option value="3" class="op3">  Rounded</option>
             </select>
-            <input type="hidden" name="chart_title" id="chart_title">
-            <input type="hidden" name="chart_data" id="chart_data">
+            <input type="hidden" name="chart_for" id="chart_for">
         </div>
     </div>
-    <div class="col-md-4" id="all_buttons">
+    <div class="col-md-4" id="all_buttons" style="margin-top: 80px;">
         <div class="col-md-6">
-            <button class="btn btn-default">COST in ($)</button>
+            <button id="cost_in" class="btn btn-default" style="margin-left: 0;">COST in (£)</button>
         </div>
         <div class="col-md-6">
-            <button id="kwh" class="btn btn-default">KWH</button>
+            <button id="kwh" class="btn btn-default" style="margin-left: 0;">KWH</button>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-default">Commodity (85%)</button>
+            <button class="btn btn-default" style="margin-left: 0;">Commodity (85%)</button>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-action btn-default">No Commodity (15%)</button>
+            <button class="btn btn-action btn-default" style="margin-left: 0;">No Commodity (15%)</button>
         </div>
     </div>
-    <div class="col-md-4" id="kwh_section" style="display: none; margin-top:100px;">
+    <div class="col-md-4" id="kwh_section" style="display: none; margin-top:80px;">
         <img src="{{ asset('images/kwh.jpg') }} " width="80px" height="60px;" alt="KWH">
         <a style="margin-left:50px; font-size: 20px;" href="#">Total KWH Report</a>
-        <div style="margin-top:275px; float:right;"><a style="font-size: 14px;" onclick="goback('kwh_section','all_buttons')" href="#"><< Back</a></div>
+        <div style="margin-top:275px; float:right;"><img src="{{ asset('images/back.png') }}" width="50px" height="50px;" alt="Back" onclick="goback('kwh_section','all_buttons')"></div>
+    </div>
+    <div class="col-md-4" id="cost_in_section" style="display: none; margin-top:80px;">
+        <img src="{{ asset('images/kwh.jpg') }} " width="80px" height="60px;" alt="KWH">
+        <a style="margin-left:50px; font-size: 20px;" href="#">Total Budget Report</a>
+        <div style="margin-top:215px; float:right;"><img src="{{ asset('images/back.png') }}" width="50px" height="50px;" alt="Back" onclick="goback('cost_in_section','all_buttons')"></div>
+    </div>
+    <div class="col-md-12" style="margin:10px 0 0 27px;">
+        <textarea cols="150" rows="3">Top Action Items.</textarea>
     </div>
     <script language="javascript">
         $( document ).ready(function() {
 
             $('.showchart').on('change', function() {
-                show_chart('{{ path('showchart') }}','');
+                show_chart('{{ path('showchart') }}');
             });
 
             $('#councils_list').on('change', function() {
@@ -108,10 +116,35 @@
             });
 
             $('#kwh').on('click', function() {
+                var selected_interval = $("#time_period").val();
+                $('#time_period').data('extraBox').disable('op4');
+                $('#time_period').data('extraBox').enable('op5');
+
+                if(selected_interval == 24){
+                    document.getElementById("select2-chosen-1").innerHTML = "Last Week";
+                }
+
+                $("#chart_for").val('kwh');
                 $("#all_buttons").hide();
-                show_chart('{{ path('showchart') }}','KWH Over Time Period');
+                show_chart('{{ path('showchart') }}');
                 $("#kwh_section").show();
             });
+
+            $('#cost_in').on('click', function() {
+                var selected_interval = $("#time_period").val();
+                $('#time_period').data('extraBox').enable('op4');
+                $('#time_period').data('extraBox').disable('op5');
+
+                if(selected_interval == 1){
+                    document.getElementById("select2-chosen-1").innerHTML = "Last Month";
+                }
+
+                $("#chart_for").val('cost_in');
+                $("#all_buttons").hide();
+                show_chart('{{ path('showchart') }}');
+                $("#cost_in_section").show();
+            });
+
         });
     </script>
 

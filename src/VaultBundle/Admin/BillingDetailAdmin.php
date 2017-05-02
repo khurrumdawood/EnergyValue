@@ -16,9 +16,10 @@ class BillingDetailAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
-                ->add('code')
-                ->add('value')
+            //    ->add('isDeleted')
+            ->add('code')
+            ->add('typeId.name',null,array('label' => 'Duos Type'))
+            ->add('value')
         ;
     }
 
@@ -27,19 +28,19 @@ class BillingDetailAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('code')
-                ->add('typeId', null, array('associated_property' => 'name', 'label' => 'Duos Type'))
-                //->add('billingId', null, array('associated_property' => 'units', 'label' => 'Billing'))
-                ->add('value')
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //    ->add('id')
+            ->add('code')
+            ->add('typeId', null, array('associated_property' => 'name', 'label' => 'Duos Type'))
+            //->add('billingId', null, array('associated_property' => 'units', 'label' => 'Billing'))
+            ->add('value')
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -48,11 +49,11 @@ class BillingDetailAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('billingId', 'sonata_type_model_list', array('label' => 'Billing', 'btn_add' => false))
-                ->add('typeId', 'sonata_type_model_list', array('label' => 'Lookup', 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('code')
-                ->add('value')
+            ->add('billingId', 'sonata_type_model_list', array('label' => 'Billing', 'btn_add' => false))
+            ->add('typeId', 'sonata_type_model_list', array('label' => 'Duos', 'btn_add' => false))
+            //->add('isDeleted')
+            ->add('code')
+            ->add('value')
         ;
     }
 

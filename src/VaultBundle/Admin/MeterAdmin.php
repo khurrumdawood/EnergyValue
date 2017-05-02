@@ -16,10 +16,13 @@ class MeterAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('isDeleted')
-                ->add('code')
-                ->add('meterNumber')
-                ->add('description')
+            //    ->add('isDeleted')
+            ->add('code')
+            ->add('meterNumber')
+            ->add('siteId.name',null,array('label' => 'Site'))
+            ->add('meterTypeId.name',null,array('label' => 'Meter Type'))
+            ->add('unitTypeId.name',null,array('label' => 'Unit'))
+            //     ->add('description')
         ;
     }
 
@@ -28,20 +31,20 @@ class MeterAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('code')
-                ->add('meterNumber')
-                ->add('siteId.name', null, array('label' => 'Site'))
-                ->add('meterTypeId.name', null, array('label' => 'Type'))
-                //->add('unitTypeId.name', null, array('label' => 'Unit type'))
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+            //      ->add('id')
+            ->add('code')
+            ->add('meterNumber')
+            ->add('siteId.name', null, array('label' => 'Site'))
+            ->add('meterTypeId.name', null, array('label' => 'Meter Type'))
+            ->add('unitTypeId.name', null, array('label' => 'Unit'))
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'softDelete' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
                     //'delete' => array(),
-                    )
-                ))
+                )
+            ))
         ;
     }
 
@@ -50,13 +53,13 @@ class MeterAdmin extends AbstractAdmin {
      */
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
-                ->add('meterTypeId', 'sonata_type_model_list', array('label' => 'Meter type lookup ', 'btn_add' => false))
-                ->add('unitTypeId', 'sonata_type_model_list', array('label' => 'Unit type lookup', 'btn_add' => false))
-                ->add('siteId', 'sonata_type_model_list', array('label' => 'Site', 'btn_add' => false))
-                //->add('isDeleted')
-                ->add('code')
-                ->add('meterNumber')
-                ->add('description')
+            ->add('meterTypeId', 'sonata_type_model_list', array('label' => 'Meter type ', 'btn_add' => false))
+            ->add('unitTypeId', 'sonata_type_model_list', array('label' => 'Unit type', 'btn_add' => false))
+            ->add('siteId', 'sonata_type_model_list', array('label' => 'Site', 'btn_add' => false))
+            //->add('isDeleted')
+            ->add('code')
+            ->add('meterNumber')
+            ->add('description')
         ;
     }
 

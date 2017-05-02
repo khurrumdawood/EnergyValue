@@ -16,9 +16,11 @@ class CouncilAdmin extends AbstractAdmin {
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
         $datagridMapper
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            ->add('code')
+            ->add('name')
+            ->add('councilTypeId.name',null, array('label' => 'Type'))
+            ->add('userCouncil.username',null, array('label' => 'User'))
+            //->add('description')
         ;
     }
 
@@ -27,18 +29,19 @@ class CouncilAdmin extends AbstractAdmin {
      */
     protected function configureListFields(ListMapper $listMapper) {
         $listMapper
-                ->add('id')
-                ->add('code')
-                ->add('name')
-                ->add('councilTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
-                ->add('_action', null, array(
-                    'actions' => array(
-                        'show' => array(),
-                        'edit' => array(),
-                        //'delete' => array(),
-                        'clone' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
-                    )
-                ))
+            // ->add('id')
+            ->add('code')
+            ->add('name')
+            ->add('councilTypeId.name', 'sonata_type_model_list', array('label' => 'Type'))
+            ->add('userCouncil', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => true))
+            ->add('_action', null, array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    //'delete' => array(),
+                    'clone' => array('template' => 'VaultBundle:Sonata:list__action_delete.html.twig'),
+                )
+            ))
         ;
     }
 
@@ -50,22 +53,20 @@ class CouncilAdmin extends AbstractAdmin {
         $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
 
         $query = $em->createQueryBuilder('l')
-                ->select('l')
-                ->from('VaultBundle:Lookup', 'l')
-                ->join('l.baseLookupId', 'b')
-                ->where("b.code = :code")
-                ->setParameter('code', 'COUNCIL TYPE');
-
-
+            ->select('l')
+            ->from('VaultBundle:Lookup', 'l')
+            ->join('l.baseLookupId', 'b')
+            ->where("b.code = :code")
+            ->setParameter('code', 'COUNCIL TYPE');
 
         $formMapper
-                ->add('userCouncil', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false))
-                //->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Profile'))
-                ->add('councilTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false,))
-                //->add('isDeleted')
-                ->add('code')
-                ->add('name')
-                ->add('description')
+            ->add('userCouncil', 'sonata_type_model_list', array('label' => 'User', 'btn_add' => false))
+            //->add('councilTypeId', 'sonata_type_model_list', array('label' => 'Profile'))
+            ->add('councilTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Type', 'property' => 'code', 'btn_add' => false, 'choices_as_values' => true))
+            //->add('isDeleted')
+            ->add('code')
+            ->add('name')
+            ->add('description')
         ;
     }
 
