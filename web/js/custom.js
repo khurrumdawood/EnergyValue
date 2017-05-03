@@ -111,12 +111,12 @@ function showmap(chart_type, chart_container, title, y_axis_title, chartresults)
             vertical_title = 'EHV';
             point_format_before = "Units";
             point_format_after = "EHV";
-            $("#kwh").innerHTML = "EHV";
+            $("#kwh").text('EHV');
         }else{
             vertical_title = 'KWH';
             point_format_before = "Units";
             point_format_after = "KWH";
-            $("#kwh").innerHTML = "KWH";
+            $("#kwh").text('KWH');
         }
 
     }

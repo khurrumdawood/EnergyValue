@@ -52,9 +52,25 @@ class MeterAdmin extends AbstractAdmin {
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper) {
+        $em = $this->modelManager->getEntityManager('VaultBundle\Entity\Lookup');
+
+        $query = $em->createQueryBuilder('l')
+            ->select('l')
+            ->from('VaultBundle:Lookup', 'l')
+            ->join('l.baseLookupId', 'b')
+            ->where("b.code = :code")
+            ->setParameter('code', 'METER TYPE');
+
+        $query2 = $em->createQueryBuilder('l')
+            ->select('l')
+            ->from('VaultBundle:Lookup', 'l')
+            ->join('l.baseLookupId', 'b')
+            ->where("b.code = :code")
+            ->setParameter('code', 'MEASUREMENT TYPE');
+
         $formMapper
-            ->add('meterTypeId', 'sonata_type_model_list', array('label' => 'Meter type ', 'btn_add' => false))
-            ->add('unitTypeId', 'sonata_type_model_list', array('label' => 'Unit type', 'btn_add' => false))
+            ->add('meterTypeId', 'sonata_type_model', array('query' => $query, 'label' => 'Meter Type', 'property' => 'code', 'btn_add' => false, 'choices_as_values' => true))
+            ->add('unitTypeId', 'sonata_type_model', array('query' => $query2,'label' => 'Unit type', 'btn_add' => false, 'choices_as_values' => true))
             ->add('siteId', 'sonata_type_model_list', array('label' => 'Site', 'btn_add' => false))
             //->add('isDeleted')
             ->add('code')
