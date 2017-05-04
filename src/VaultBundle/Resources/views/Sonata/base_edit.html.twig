@@ -2,10 +2,13 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/jquery.blockUI.js') }}" type="text/javascript"></script>
     <script>
         $('select.select_contract_edit').prop('disabled', true);
         $(document).ready(function () {
             $(".select_commidity").change(function () {
+
+                $.blockUI({ message: '<h1>Please Wait ...</h1>' });
 
                 var code = $(this).val();
                 $.ajax({
@@ -15,8 +18,9 @@
                     cache: false,
                     success: function (html)
                     {
-                        $(".select_contract span#select2-chosen-2").val("");
+                        $('#select2-chosen-2').html('');
                         $("select.select_contract").html(html);
+                        $.unblockUI() ;
                     }
                 });
             });
